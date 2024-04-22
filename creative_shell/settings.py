@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'creative_shell.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cultural_heritage',
+        'NAME': 'postgres',
         'USER': 'admin',
         'PASSWORD': 'admin',
         'HOST': 'localhost',
