@@ -1,6 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+
+from cultural_heritage.models import CulturalHeritage
 
 
 def index(request):
-    return render(request, 'index.html')
+    heritages = CulturalHeritage.objects.all()[:5]
+    return render(request, 'index.html', {'heritages': heritages})
+
