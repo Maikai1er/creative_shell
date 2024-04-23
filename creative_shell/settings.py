@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "cultural_heritage.apps.CulturalHeritageConfig"
+    'cultural_heritage'
 ]
 
 MIDDLEWARE = [
@@ -78,20 +78,20 @@ WSGI_APPLICATION = 'creative_shell.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'admin',
+        'NAME': 'test',
+        'USER': 'postgres',
         'PASSWORD': 'admin',
         'HOST': 'localhost',
         'PORT': '5432',
     },
-    'test': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'test',
-        'USER': 'admin',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    # 'test': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'test',
+    #     'USER': 'admin',
+    #     'PASSWORD': 'admin',
+    #     'HOST': 'localhost',
+    #     'PORT': '5432',
+    # }
 }
 
 

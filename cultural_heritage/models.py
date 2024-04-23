@@ -8,7 +8,10 @@ class CulturalHeritage(models.Model):
     # description = models.TextField()
     # source_link = models.URLField()
     # image = models.ImageField(upload_to='cultural_images/')
-    created_at = models.DateTimeField(auto_now_add=True)
+    # created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'cultural_heritage'
 
     def __str__(self):
         return self.name

@@ -1,13 +1,24 @@
+import os
+
+import django
 import requests
 from bs4 import BeautifulSoup
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'creative_shell.settings')
+
+django.setup()
+
+from cultural_heritage.models import CulturalHeritage
+
 
 # returns heritages list in format:
 # [{'name': 'Abu Mena', 'location': 'Abusir'},
 # {'name': 'Air and Ténéré Natural Reserves', 'location': 'Arlit Department'},
 # {'name': 'Ancient City of Aleppo', 'location': 'Aleppo Governorate'}.... ]
+# WARNING: THIS IS ONLY A TEST PARSER !!!
 
 
-def cultural_heritage_parser():
+def parse_wiki():
     # headers = {
     #     'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win 64 ; x64) Apple WeKit /537.36(KHTML , like Gecko) '
     #                   'Chrome/80.0.3987.162 Safari/537.36',
@@ -36,3 +47,14 @@ def cultural_heritage_parser():
                 heritage['location'] = text
         heritages.append(heritage)
     return heritages
+
+
+def save_to_database():
+    heritages = parse_wiki()
+    cultural_heritages = [
+        CulturalHeritage(**heritage) for heritage in heritages
+    ]
+    CulturalHeritage.objects.bulk_create(cultural_heritages)
+
+
+save_to_database()
