@@ -21,4 +21,5 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='home'),
+    path('load-more-heritages/', views.load_more_heritages, name='load_more_heritages'),
 ]
