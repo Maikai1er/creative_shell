@@ -1,21 +1,37 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Heritage Page</title>
-    <!-- Подключаем скрипт load_more_heritages_script.js -->
-    <script src="{% static 'load_more_heritages_script.js' %}"></script>
+    <title>Creative Shell Project</title>
+
+    <style>
+        h1 {
+            font-size: 150px;
+        }
+        
+        #heritage-list li {
+            font-size: 75px; /* Установка размера текста элементов списка */
+            margin-bottom: 100px; /* Добавление отступа между элементами списка */
+        }
+
+        #heritage-list {
+            font-size: 20px; /* Установка размера текста самого списка */
+            list-style-type: none; /* Удаление маркеров списка */
+            padding-left: 0; /* Удаление внутреннего отступа слева */
+        }
+    </style>
 </head>
 <body>
 
-<h1>Heritage Page</h1>
+<h1>Creative Shell Project</h1>
 
 <ul id="heritage-list">
-    <!-- Здесь будут отображаться объекты наследия -->
+
 </ul>
 
-<button id="load-more-button">Load More</button>
+<button id="load-more-button" style="display: none;">Load More</button>
+
+<script src="static/load_more_heritages_script.js"></script>
 
 </body>
 </html>

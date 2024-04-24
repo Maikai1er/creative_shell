@@ -1,10 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
     let offset = 0;
-    const loadMoreButton = document.getElementById('load-more-button');
+    let isLoading = false; // Переменная для отслеживания состояния загрузки
     const heritageList = document.getElementById('heritage-list');
 
-    loadMoreButton.addEventListener('click', function() {
-        console.log('Offset before fetch:', offset);
+    // Функция для загрузки дополнительных элементов
+    function loadMoreItems() {
+        if (isLoading) return; // Если уже идет загрузка, прекратить выполнение
+
+        isLoading = true; // Устанавливаем флаг загрузки
         fetch(`/load-more-heritages/?offset=${offset}`)
             .then(response => response.json())
             .then(data => {
@@ -16,9 +19,26 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                     offset += data.length;
                 } else {
-                    loadMoreButton.style.display = 'none';
+                    // Если больше элементов нет, скрываем кнопку
+                    document.getElementById('load-more-button').style.display = 'none';
                 }
             })
-            .catch(error => console.error('Error loading more heritages:', error));
+            .catch(error => console.error('Error loading more heritages:', error))
+            .finally(() => {
+                isLoading = false; // Сбрасываем флаг загрузки после завершения запроса
+            });
+    }
+
+    // Обработчик события scroll для загрузки при достижении нижней части страницы
+    window.addEventListener('scroll', function() {
+        const scrollPosition = window.scrollY + window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+
+        if (scrollPosition >= documentHeight * 0.9) {
+            loadMoreItems();
+        }
     });
+
+    // Инициализация загрузки при загрузке страницы
+    loadMoreItems();
 });
