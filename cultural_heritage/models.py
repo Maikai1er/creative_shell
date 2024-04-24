@@ -5,6 +5,8 @@ from django.db import models
 class CulturalHeritage(models.Model):
     name = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
+    year_whs = models.IntegerField(default=2024, null=True)
+    year_endangered = models.IntegerField(default=2024, null=True)
     # description = models.TextField()
     # source_link = models.URLField()
     # image = models.ImageField(upload_to='cultural_images/')

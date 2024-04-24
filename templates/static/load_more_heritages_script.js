@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (data.length > 0) {
                     data.forEach(heritage => {
                         const li = document.createElement('li');
-                        li.textContent = `${heritage.name} - ${heritage.location}`;
+                        console.log(heritage)
+                        li.textContent = `${heritage.name} - ${heritage.location} - ${heritage.year_whs} - ${heritage.year_endangered}`;
                         heritageList.appendChild(li);
                     });
                     offset += data.length;

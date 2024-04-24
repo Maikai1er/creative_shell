@@ -3,6 +3,7 @@ import os
 import django
 import requests
 from bs4 import BeautifulSoup
+import re
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'creative_shell.settings')
 
@@ -16,6 +17,7 @@ from cultural_heritage.models import CulturalHeritage
 # {'name': 'Air and Ténéré Natural Reserves', 'location': 'Arlit Department'},
 # {'name': 'Ancient City of Aleppo', 'location': 'Aleppo Governorate'}.... ]
 # WARNING: THIS IS ONLY A TEST PARSER !!!
+# SECOND WARNING: THIS IS AN OMEGA TEST PARSER!!!!!!
 
 
 def parse_wiki():
@@ -39,6 +41,27 @@ def parse_wiki():
         heritage['name'] = name.text.strip('\n')
 
         cells = row.find_all('td')
+
+        pattern = re.compile(r'\d+')
+        years = []
+        for td in cells:
+            td_text = td.get_text(strip=True)
+
+            numbers = pattern.findall(td_text)
+            filtered_numbers = filter(lambda x: len(x) == 4, numbers)
+            for number in filtered_numbers:
+                years.append(int(number))
+                heritage['Year (WHS)'] = years[0]
+                if len(years) > 1:
+                    heritage['Year (Endangered)'] = years[1]
+        #     br = td.find_all('br')
+        #     print(br)
+        # #     print(td)
+        # #     span_elements = td.find_all('br')
+        # #     for span_element in span_elements:
+        # #         print(span_element)
+        # #         # text = span_element.get_text(strip=True)
+        # #         # print(text)
         if cells:
             second_cell = cells[1]
             link = second_cell.find('a', href=True, title=True)
@@ -51,9 +74,18 @@ def parse_wiki():
 
 def save_to_database():
     heritages = parse_wiki()
-    cultural_heritages = [
-        CulturalHeritage(**heritage) for heritage in heritages
-    ]
+    cultural_heritages = []
+
+    for heritage in heritages:
+        cultural_heritage = CulturalHeritage(
+            name=heritage['name'],
+            location=heritage.get('location', 'Location Not Found'),
+            year_whs=heritage.get('Year (WHS)', None),
+            year_endangered=heritage.get('Year (Endangered)', None)
+        )
+
+        cultural_heritages.append(cultural_heritage)
+
     CulturalHeritage.objects.bulk_create(cultural_heritages)
 
 

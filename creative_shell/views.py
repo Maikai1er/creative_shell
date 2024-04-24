@@ -9,7 +9,12 @@ def load_more_heritages(request):
     limit = 5
 
     heritages = CulturalHeritage.objects.all()[offset:offset + limit]
-    data = [{'name': heritage.name, 'location': heritage.location} for heritage in heritages]
+    data = [{
+        'name': heritage.name,
+        'location': heritage.location,
+        'year_whs': heritage.year_whs,
+        'year_endangered': heritage.year_endangered}
+        for heritage in heritages]
 
     return JsonResponse(data, safe=False)
 
