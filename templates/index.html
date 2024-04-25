@@ -6,24 +6,65 @@
 
     <style>
         h1 {
-            font-size: 150px;
+            font-size: 110px;
+            margin: 0;
+            text-align: center; /* Центрирование заголовка */
         }
-        
+
         #heritage-list li {
-            font-size: 75px; /* Установка размера текста элементов списка */
-            margin-bottom: 300px; /* Добавление отступа между элементами списка */
+            font-size: 75px;
+            margin-bottom: 100px; /* Уменьшаем отступ между элементами списка */
         }
 
         #heritage-list {
-            font-size: 20px; /* Установка размера текста самого списка */
-            list-style-type: none; /* Удаление маркеров списка */
-            padding-left: 0; /* Удаление внутреннего отступа слева */
+            font-size: 20px;
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        div.centered {
+            width: 95vw; /* Ширина блока */
+            margin: 0 auto; /* Устанавливает автоматические отступы слева и справа */
+            background-color: #f0f0f0;
+            padding: 20px;
+            text-align: center; /* Центрирование содержимого */
+            height: 50px;
+            align-items: center;
+            display: flex;
+            text-indent: 550px;
+        }
+
+        /* Стили для div с текстом, который нужно сместить */
+        div.h1_to_right {
+            width: 95vw; /* Ширина блока */
+            margin: 0 auto; /* Устанавливает автоматические отступы слева и справа */
+            background-color: #f0f0f0;
+            padding: 20px;
+            height: 50px;
+            align-items: center;
+            display: flex;
+        }
+
+        /* Стили для текста внутри div.h1_to_right */
+        div.h1_to_right p {
+            text-indent: 650px; /* Смещение текста на 40px */
         }
     </style>
 </head>
 <body>
 
-<h1>Creative Shell Project</h1>
+<h1>
+    <div class="h1_to_right">
+        <p>Creative</p>
+    </div>
+    <div class="centered">
+        Shell
+    </div>
+    <div class="h1_to_right">
+        <p>Project</p>
+    </div>
+</h1>
+
 
 <ul id="heritage-list">
 
@@ -32,6 +73,8 @@
 <button id="load-more-button" style="display: none;">Load More</button>
 
 <script src="static/load_more_heritages_script.js"></script>
-
+<footer>
+    <div class="centered">Contacts: Telegram, Instagram, Twitter, Facebook, LinkedIn</div>
+</footer>
 </body>
 </html>
