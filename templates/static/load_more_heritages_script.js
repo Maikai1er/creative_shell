@@ -14,8 +14,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (data.length > 0) {
                     data.forEach(heritage => {
                         const li = document.createElement('li');
-                        console.log(heritage)
-                        li.textContent = `${heritage.name} - ${heritage.location} - ${heritage.year_whs} - ${heritage.year_endangered}`;
+                        console.log(heritage);
+                        li.innerHTML = `${heritage.name} - ${heritage.location} <br> ${heritage.year_whs} - ${heritage.year_endangered}`;
+                        const heritageImage = document.createElement('img');
+                        heritageImage.src = '/static/website-stopper.jpg';
+                        li.appendChild(heritageImage);
                         heritageList.appendChild(li);
                     });
                     offset += data.length;
