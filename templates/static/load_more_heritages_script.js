@@ -1,21 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
     let offset = 0;
-    let isLoading = false; // Переменная для отслеживания состояния загрузки
+    let isLoading = false;
     const heritageList = document.getElementById('heritage-list');
 
-    // Функция для загрузки дополнительных элементов
     function loadMoreItems() {
-        if (isLoading) return; // Если уже идет загрузка, прекратить выполнение
+        if (isLoading) return;
 
-        isLoading = true; // Устанавливаем флаг загрузки
+        isLoading = true;
         fetch(`/load-more-heritages/?offset=${offset}`)
             .then(response => response.json())
             .then(data => {
                 if (data.length > 0) {
                     data.forEach(heritage => {
                         const li = document.createElement('li');
-                        console.log(heritage);
-                        li.innerHTML = `${heritage.name} - ${heritage.location} <br> ${heritage.year_whs} - ${heritage.year_endangered}`;
+                        li.innerHTML = `${heritage.name} <br> ${heritage.location} <br> ${heritage.year_whs} - ${heritage.year_endangered} <br>`;
                         const heritageImage = document.createElement('img');
                         heritageImage.src = '/static/website-stopper.jpg';
                         li.appendChild(heritageImage);
@@ -23,17 +21,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                     offset += data.length;
                 } else {
-                    // Если больше элементов нет, скрываем кнопку
                     document.getElementById('load-more-button').style.display = 'none';
                 }
             })
             .catch(error => console.error('Error loading more heritages:', error))
             .finally(() => {
-                isLoading = false; // Сбрасываем флаг загрузки после завершения запроса
+                isLoading = false;
             });
     }
 
-    // Обработчик события scroll для загрузки при достижении нижней части страницы
     window.addEventListener('scroll', function() {
         const scrollPosition = window.scrollY + window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight;
@@ -43,6 +39,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Инициализация загрузки при загрузке страницы
     loadMoreItems();
 });

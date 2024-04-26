@@ -8,7 +8,7 @@ header {
     background-color: #a3b9ea;
     color: #cb8b8b;
     padding: 20px 0;
-    position: relative; /* Устанавливаем позиционирование */
+    position: relative;
 }
 
 .header-content {
@@ -21,10 +21,10 @@ header {
 }
 
 .custom-caption {
-    position: absolute; /* Абсолютное позиционирование */
-    top: 50%; /* Располагаем по вертикали на 50% высоты шапки */
-    left: 50%; /* Располагаем по горизонтали на 50% ширины шапки */
-    transform: translate(-50%, -50%); /* Центрируем по центру шапки */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-size: 24px;
     background-color: #ffcc00;
     padding: 10px 20px;
@@ -48,12 +48,13 @@ header {
 h1 {
         font-size: 110px;
         margin: 0;
-        text-align: center; /* Центрирование заголовка */
+        text-align: center;
 }
 
 #heritage-list li {
     font-size: 75px;
-    margin-bottom: 100px; /* Уменьшаем отступ между элементами списка */
+    margin-bottom: 100px;
+    text-align: center;
 }
 
 #heritage-list {
@@ -63,21 +64,20 @@ h1 {
 }
 
 div.centered {
-    width: 95vw; /* Ширина блока */
-    margin: 0 auto; /* Устанавливает автоматические отступы слева и справа */
+    width: 95vw;
+    margin: 0 auto;
     background-color: #f0f0f0;
     padding: 20px;
-    text-align: center; /* Центрирование содержимого */
+    text-align: center;
     height: 50px;
     align-items: center;
     display: flex;
     text-indent: 550px;
 }
 
-/* Стили для div с текстом, который нужно сместить */
 div.h1_to_right {
-    width: 95vw; /* Ширина блока */
-    margin: 0 auto; /* Устанавливает автоматические отступы слева и справа */
+    width: 95vw;
+    margin: 0 auto;
     background-color: #f0f0f0;
     padding: 20px;
     height: 50px;
@@ -85,7 +85,6 @@ div.h1_to_right {
     display: flex;
 }
 
-/* Стили для текста внутри div.h1_to_right */
 div.h1_to_right p {
-    text-indent: 650px; /* Смещение текста на 40px */
+    text-indent: 650px;
 }
