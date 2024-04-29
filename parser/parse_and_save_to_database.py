@@ -9,7 +9,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'creative_shell.settings')
 
 django.setup()
 
-from cultural_heritage.models import CulturalHeritage
+from cultural_heritage.save_object_to_database import save_object_to_database
 
 
 # returns heritages list in format:
@@ -74,19 +74,9 @@ def parse_wiki():
 
 def save_to_database():
     heritages = parse_wiki()
-    cultural_heritages = []
 
     for heritage in heritages:
-        cultural_heritage = CulturalHeritage(
-            name=heritage['name'],
-            location=heritage.get('location', 'Location Not Found'),
-            year_whs=heritage.get('Year (WHS)', None),
-            year_endangered=heritage.get('Year (Endangered)', None)
-        )
-
-        cultural_heritages.append(cultural_heritage)
-
-    CulturalHeritage.objects.bulk_create(cultural_heritages)
+        save_object_to_database(heritage)
 
 
 save_to_database()

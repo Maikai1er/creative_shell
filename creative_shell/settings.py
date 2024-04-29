@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'cultural_heritage'
+    'cultural_heritage',
+    'parser'
 ]
 
 MIDDLEWARE = [
