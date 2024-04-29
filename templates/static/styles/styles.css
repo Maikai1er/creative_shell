@@ -51,17 +51,11 @@ h1 {
         text-align: center;
 }
 
-#heritage-list li {
-    font-size: 75px;
-    margin-bottom: 100px;
-    text-align: center;
-}
-
-#heritage-list {
-    font-size: 20px;
-    list-style-type: none;
-    padding-left: 0;
-}
+/*#heritage-list li {*/
+/*    font-size: 75px;*/
+/*    margin-bottom: 100px;*/
+/*    text-align: center;*/
+/*}*/
 
 div.centered {
     width: 95vw;
@@ -87,4 +81,36 @@ div.h1_to_right {
 
 div.h1_to_right p {
     text-indent: 650px;
+}
+
+#heritage-list {
+    list-style: none;
+    padding: 0;
+}
+
+.heritage-item {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Центрирование по горизонтали */
+    margin-bottom: 20px;
+}
+
+.heritage-text {
+    margin-right: 20px; /* Добавляем отступ между текстом и изображением */
+}
+
+.heritage-image {
+    max-width: 400px; /* Установите желаемую ширину изображения */
+    max-height: 400px; /* Установите желаемую высоту изображения */
+}
+
+.centered {
+    width: 100%;
+    text-align: center;
+}
+
+footer {
+    background-color: #f0f0f0;
+    padding: 20px 0;
+    text-align: center;
 }
