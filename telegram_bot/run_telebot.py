@@ -2,22 +2,26 @@ from django.core.management.base import BaseCommand
 from telebot import TeleBot
 
 
-class Command(BaseCommand):
-    help = 'Runs the Telegram bot'
+TOKEN = '6962411316:AAHb_QYx3XU-JNib6gkhDhOXKEBiW_k6s74'
+bot = TeleBot(TOKEN)
 
-    def handle(self, *args, **options):
-        TOKEN = '6962411316:AAHb_QYx3XU-JNib6gkhDhOXKEBiW_k6s74'
-        bot = TeleBot(TOKEN)
 
-        @bot.message_handler(commands=['start'])
-        def send_welcome(message):
-            bot.reply_to(message, 'Welcome!')
+@bot.message_handler(commands=['start'])
+def send_welcome(message):
+    bot.reply_to(message, 'Welcome!')
 
-        @bot.message_handler(func=lambda message: True)
-        def echo_message(message):
-            bot.reply_to(message, message.text)
 
-        bot.infinity_polling()
+@bot.message_handler(func=lambda message: True)
+def echo_message(message):
+    bot.reply_to(message, message.text)
+
+
+def run_telebot():
+    bot.infinity_polling()
+
+
+def send_notification(text):
+    bot.send_message(chat_id=5787733609, text=text)
 
 # что по большому счету нужно
 # 1. бот здоровается

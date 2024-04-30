@@ -5,6 +5,8 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
+from telegram_bot.run_telebot import send_notification
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'creative_shell.settings')
 
 django.setup()
@@ -74,6 +76,8 @@ def parse_wiki():
 
 def save_to_database():
     heritages = parse_wiki()
+
+    send_notification('parser started')
 
     for heritage in heritages:
         save_object_to_database(heritage)
