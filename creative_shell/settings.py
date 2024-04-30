@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cultural_heritage',
     'parser',
-    'telebot'
+    'telegram_bot'
 ]
 
 MIDDLEWARE = [
