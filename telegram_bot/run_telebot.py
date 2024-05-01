@@ -16,12 +16,18 @@ def echo_message(message):
     bot.reply_to(message, message.text)
 
 
-def run_telebot():
-    bot.infinity_polling()
-
-
 def send_notification(text):
     bot.send_message(chat_id=5787733609, text=text)
+
+
+def run_telebot():
+    print('RUNNING TELEBOT')
+    bot.polling()
+
+
+def stop_telebot():
+    bot.stop_polling()
+
 
 # что по большому счету нужно
 # 1. бот здоровается
