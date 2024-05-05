@@ -83,9 +83,9 @@ WSGI_APPLICATION = 'creative_shell.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'test',
+        'NAME': 'sandBox',
         'USER': 'postgres',
-        'PASSWORD': 'admin',
+        'PASSWORD': 'TestPassV3TTR',
         'HOST': 'localhost',
         'PORT': '5432',
     },
