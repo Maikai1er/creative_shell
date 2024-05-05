@@ -1,4 +1,3 @@
-from django.core.management.base import BaseCommand
 from telebot import TeleBot
 
 
@@ -11,17 +10,23 @@ def send_welcome(message):
     bot.reply_to(message, 'Welcome!')
 
 
+@bot.message_handler(commands=['run'])
+def start_bot():
+    bot.polling()
+
+
+@bot.message_handler(commands=['stop'])
+def stop():
+    bot.stop_polling()
+
+
 @bot.message_handler(func=lambda message: True)
 def echo_message(message):
     bot.reply_to(message, message.text)
 
 
-def send_notification(text):
-    bot.send_message(chat_id=5787733609, text=text)
-
-
 def run_telebot():
-    print('RUNNING TELEBOT')
+    print('Starting telebot ...')
     bot.polling()
 
 

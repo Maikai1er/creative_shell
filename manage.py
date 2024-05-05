@@ -2,7 +2,10 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-from telegram_bot.run_telebot import bot
+
+from celery import Celery
+
+# from telegram_bot.tasks import start_telegram_bot
 
 
 def main():
@@ -17,9 +20,8 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-    finally:
-        bot.stop_polling()
 
 
 if __name__ == '__main__':
+    # start_telegram_bot.delay()
     main()
