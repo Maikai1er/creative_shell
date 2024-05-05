@@ -4,6 +4,8 @@ from telebot import TeleBot
 TOKEN = '6962411316:AAHb_QYx3XU-JNib6gkhDhOXKEBiW_k6s74'
 bot = TeleBot(TOKEN)
 
+# chat_id=5787733609
+
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
@@ -20,6 +22,10 @@ def stop():
     bot.stop_polling()
 
 
+def send_notification(text):
+    bot.send_message(chat_id='5787733609', text=text)
+
+
 @bot.message_handler(func=lambda message: True)
 def echo_message(message):
     bot.reply_to(message, message.text)
@@ -28,10 +34,6 @@ def echo_message(message):
 def run_telebot():
     print('Starting telebot ...')
     bot.polling()
-
-
-def stop_telebot():
-    bot.stop_polling()
 
 
 # что по большому счету нужно

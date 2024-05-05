@@ -5,7 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
-from telegram_bot.run_telebot import send_notification
+from telegram_bot.telegram_bot import send_notification
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'creative_shell.settings')
 
