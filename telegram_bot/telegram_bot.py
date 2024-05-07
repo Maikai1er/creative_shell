@@ -27,7 +27,7 @@ def stop():
     bot.stop_polling()
 
 
-def receive_new_object(heritage):
+def receive_new_heritage(heritage):
     heritage_json = json.dumps(heritage)
     redis_client.set('current_heritage', heritage_json)
     bot.send_message(chat_id='5787733609', text='New object received!')
@@ -40,11 +40,9 @@ def handle_decision(message):
     try:
         heritage_json = redis_client.get('current_heritage')
         heritage = json.loads(heritage_json)
-        if not heritage_json:
-            bot.send_message(message.chat.id, 'Error: No current heritage')
-            return
 
         if message.text == '/approve' or message.text == 'approve':
+            # Yes, we have to import this here, otherwise server wouldn't start. Hala Django!
             from cultural_heritage.save_object_to_database import save_object_to_database
             save_object_to_database(heritage)
             bot.send_message(message.chat.id, 'Heritage successfully saved to database!')
@@ -66,6 +64,10 @@ def create_keyboard(buttons):
 @bot.message_handler(func=lambda message: True)
 def default_reply(message):
     bot.reply_to(message, text='I don\'t understand, please go talk to ChatGPT <3.')
+
+
+def send_notification(text):
+    bot.send_message(chat_id='5787733609', text=text)
 
 
 def run_telebot():

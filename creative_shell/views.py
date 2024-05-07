@@ -1,14 +1,16 @@
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import render
+from django.db.models.functions import Random
 
 from cultural_heritage.models import CulturalHeritage
 
 
 def load_more_heritages(request):
-    offset = int(request.GET.get('offset', 0))
     limit = 5
 
-    heritages = CulturalHeritage.objects.all()[offset:offset + limit]
+    # Перемешиваем записи и выбираем случайные объекты
+    heritages = CulturalHeritage.objects.all().order_by(Random())[:limit]
+
     data = [{
         'name': heritage.name,
         'location': heritage.location,
@@ -20,5 +22,6 @@ def load_more_heritages(request):
 
 
 def index(request):
-    heritages = CulturalHeritage.objects.all()  # Получаем первые 5 объектов
+    # Получаем первые 5 случайных объектов для отображения на главной странице
+    heritages = CulturalHeritage.objects.all().order_by(Random())[:5]
     return render(request, 'index.html', {'heritages': heritages})

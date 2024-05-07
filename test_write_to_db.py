@@ -1,10 +1,10 @@
-from telegram_bot.telegram_bot import receive_new_object
+from telegram_bot.telegram_bot import receive_new_heritage
 
 test_heritage = {
     'name': 'test_name',
     'location': 'test_location',
-    'year_endangered': 'test_year_endangered',
-    'year_whs': 'test_year_whs',
+    'year_endangered': 2000,
+    'year_whs': 2024,
 }
 
-receive_new_object(test_heritage)
+receive_new_heritage(test_heritage)
