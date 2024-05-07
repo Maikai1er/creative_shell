@@ -57,7 +57,7 @@ def handle_decision(message):
             # Yes, we have to import this here, otherwise server wouldn't start. Hala Django!
             from cultural_heritage.save_object_to_database import save_object_to_database
             save_object_to_database(heritage)
-            bot.send_message(message.chat.id, 'Heritage successfully saved to database!')
+            bot.send_message(message.chat.id, 'Heritage has been successfully saved to database!')
         if message.text == '/reject' or message.text == 'reject':
             bot.send_message(message.chat.id, 'Heritage is rejected and will not be saved to database!')
 

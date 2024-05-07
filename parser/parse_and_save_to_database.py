@@ -1,21 +1,21 @@
 import os
 import sys
+import django
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'creative_shell.settings')
 
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+print(project_root)
 sys.path.insert(0, project_root)
+django.setup()
 
-import django
+
+from cultural_heritage.models import CulturalHeritage
 import requests
 from bs4 import BeautifulSoup
 import re
 
-from telegram_bot.telegram_bot import send_notification
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'creative_shell.settings')
-
-django.setup()
-
-from cultural_heritage.save_object_to_database import save_object_to_database
+from telegram_bot.telegram_bot import send_notification, receive_new_heritage
 
 
 # returns heritages list in format:
@@ -81,10 +81,11 @@ def parse_wiki():
 def save_to_database():
     heritages = parse_wiki()
 
-    send_notification('parser started')
+    send_notification('Warning, parsing started!')
 
     for heritage in heritages:
-        save_object_to_database(heritage)
+        if not CulturalHeritage.objects.filter(name=heritage['name']).exists():
+            receive_new_heritage(heritage)
 
 
 save_to_database()
