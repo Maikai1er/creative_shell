@@ -1,9 +1,17 @@
-from telebot import TeleBot
+import json
 
+from telebot import TeleBot
+from telebot.types import ReplyKeyboardMarkup, KeyboardButton
+import redis
 
 TOKEN = '6962411316:AAHb_QYx3XU-JNib6gkhDhOXKEBiW_k6s74'
 bot = TeleBot(TOKEN)
 
+redis_host = 'localhost'
+redis_port = 6379
+redis_db = 0
+redis_password = 'r3NVuM4N'
+redis_client = redis.StrictRedis(host=redis_host, port=redis_port, db=redis_db, password=redis_password)
 # chat_id=5787733609
 
 
@@ -22,13 +30,45 @@ def stop():
     bot.stop_polling()
 
 
+def receive_new_object(heritage):
+    heritage_json = json.dumps(heritage)
+    redis_client.set('current_heritage', heritage_json)
+    bot.send_message(chat_id='5787733609', text='New object received!')
+    bot.send_message(chat_id='5787733609', text=str(heritage))
+    bot.send_message(chat_id='5787733609', text='Choose an action:', reply_markup=create_keyboard(['approve', 'reject']))
+
+
+@bot.message_handler(func=lambda message: message.text in ['approve', 'reject'])
+def handle_decision(message):
+    try:
+        heritage_json = redis_client.get('current_heritage')
+        print(heritage_json)
+        heritage = json.loads(heritage_json)
+        if not heritage_json:
+            bot.send_message(message.chat.id, 'Error: No current heritage')
+            return
+
+        if message.text == 'approve':
+            from cultural_heritage.save_object_to_database import save_object_to_database
+            save_object_to_database(heritage)
+            bot.send_message(message.chat.id, 'Heritage successfully saved to database!')
+        elif message.text == 'reject':
+            bot.send_message(message.chat.id, 'Heritage is rejected and will not be saved to database!')
+
+        redis_client.delete('current_heritage')
+    except Exception as e:
+        bot.send_message(message.chat.id, 'Error: ' + str(e))
+
+
+def create_keyboard(buttons):
+    keyboard = ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
+    for button in buttons:
+        keyboard.add(KeyboardButton(text=button))
+    return keyboard
+
+
 def send_notification(text):
     bot.send_message(chat_id='5787733609', text=text)
-
-
-@bot.message_handler(func=lambda message: True)
-def echo_message(message):
-    bot.reply_to(message, message.text)
 
 
 def run_telebot():
