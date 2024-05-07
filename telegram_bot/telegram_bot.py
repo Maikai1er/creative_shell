@@ -35,6 +35,18 @@ def receive_new_heritage(heritage):
     bot.send_message(chat_id='5787733609', text='Choose an action:', reply_markup=create_keyboard(['approve', 'reject']))
 
 
+@bot.message_handler(commands=['test'])
+def test(message):
+    bot.reply_to(message, text='This is a test command to try out the bot functionality!')
+    test_heritage = {
+        'name': 'test_name',
+        'location': 'test_location',
+        'year_endangered': 2000,
+        'year_whs': 2024,
+    }
+    receive_new_heritage(test_heritage)
+
+
 @bot.message_handler(func=lambda message: message.text in ['approve', 'reject', '/approve', '/reject'])
 def handle_decision(message):
     try:
