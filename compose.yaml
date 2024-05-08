@@ -20,3 +20,13 @@ services:
       - 6379:6379
     environment:
       - REDIS_PASSWORD=r3NVuM4N
+
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgres
+      - redis
