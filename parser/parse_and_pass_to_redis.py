@@ -5,7 +5,6 @@ import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'creative_shell.settings')
 
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-print(project_root)
 sys.path.insert(0, project_root)
 django.setup()
 
@@ -15,7 +14,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
-from telegram_bot.telegram_bot import send_notification, receive_new_heritage
+from telegram_bot.telegram_bot import send_notification, push_heritages_to_redis
 
 
 # returns heritages list in format:
@@ -26,7 +25,7 @@ from telegram_bot.telegram_bot import send_notification, receive_new_heritage
 # SECOND WARNING: THIS IS AN OMEGA TEST PARSER!!!!!!
 
 
-def parse_wiki():
+def parse_wiki() -> list:
     # headers = {
     #     'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win 64 ; x64) Apple WeKit /537.36(KHTML , like Gecko) '
     #                   'Chrome/80.0.3987.162 Safari/537.36',
@@ -83,9 +82,12 @@ def save_to_database():
 
     send_notification('Warning, parsing started!')
 
+    new_heritages = []
     for heritage in heritages:
         if not CulturalHeritage.objects.filter(name=heritage['name']).exists():
-            receive_new_heritage(heritage)
+            new_heritages.append(heritage)
+
+    push_heritages_to_redis(new_heritages)
 
 
 save_to_database()
