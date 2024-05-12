@@ -37,3 +37,10 @@ services:
       - 80:80
     depends_on:
       - django
+
+  telegram-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile_telegram_bot
+    depends_on:
+      - django

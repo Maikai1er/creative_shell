@@ -5,4 +5,5 @@ redis~=5.1.0b4
 telebot~=0.0.5
 celery~=5.4.0
 gunicorn~=22.0.0
-psycopg2~=2.9.9
+psycopg2-binary~=2.9.9
+pytelegrambotapi~=4.17.0

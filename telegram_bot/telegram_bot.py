@@ -6,7 +6,7 @@ import redis
 TOKEN = '6962411316:AAHb_QYx3XU-JNib6gkhDhOXKEBiW_k6s74'
 bot = TeleBot(TOKEN)
 
-redis_host = 'localhost'
+redis_host = 'redis'
 redis_port = 6379
 redis_db = 0
 redis_password = 'r3NVuM4N'
@@ -97,3 +97,6 @@ def send_notification(text):
 def run_telebot():
     print('Starting telebot ...')
     bot.polling()
+
+
+run_telebot()
