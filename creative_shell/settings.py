@@ -86,7 +86,7 @@ DATABASES = {
         'NAME': 'sandBox',
         'USER': 'postgres',
         'PASSWORD': 'TestPassV3TTR',
-        'HOST': 'localhost',
+        'HOST': 'postgres',
         'PORT': '5432',
     },
     # 'test': {
@@ -133,10 +133,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
-
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "templates/static",
+    BASE_DIR / "static",
 ]
 
 # Default primary key field type

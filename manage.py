@@ -2,9 +2,6 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-import threading
-
-from telegram_bot.telegram_bot import run_telebot
 
 
 def main():
@@ -18,11 +15,6 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
-
-    # if not os.environ.get('TELEBOT_ALREADY_RUNNING'):
-    #     os.environ['TELEBOT_ALREADY_RUNNING'] = 'True'
-    #     bot_thread = threading.Thread(target=run_telebot)
-    #     bot_thread.start()
 
     execute_from_command_line(sys.argv)
 
