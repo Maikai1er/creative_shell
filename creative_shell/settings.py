@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cultural_heritage',
     'parser',
-    'telegram_bot'
+    'telegram_bot',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,19 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'OPTIONS'
+]
+
+CORS_ALLOW_HEADERS = [
+    '*',
 ]
 
 ROOT_URLCONF = 'creative_shell.urls'
@@ -60,7 +74,7 @@ CELERY_RESULT_BACKEND = "redis://:r3NVuM4N@127.0.0.1:6379/0"
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [BASE_DIR / 'web/public']
         ,
         'APP_DIRS': True,
         'OPTIONS': {

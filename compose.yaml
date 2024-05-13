@@ -38,6 +38,13 @@ services:
     depends_on:
       - django
 
+  react:
+    build:
+      context: ./web
+      dockerfile: Dockerfile_web
+    ports:
+      - 3000:3000
+
   telegram-bot:
     build:
       context: .

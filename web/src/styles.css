@@ -1,0 +1,116 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #a3b9ea;
+    color: #cb8b8b;
+    padding: 20px 0;
+    position: relative;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.custom-caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    background-color: #ffcc00;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .custom-caption {
+        font-size: 18px;
+    }
+}
+
+ /* ЗДЕСЬ НАЧИНАЕТСЯ МУСОР XD */
+
+h1 {
+        font-size: 110px;
+        margin: 0;
+        text-align: center;
+}
+
+/*#heritage-list li {*/
+/*    font-size: 75px;*/
+/*    margin-bottom: 100px;*/
+/*    text-align: center;*/
+/*}*/
+
+div.centered {
+    width: 95vw;
+    margin: 0 auto;
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+    height: 50px;
+    align-items: center;
+    display: flex;
+    text-indent: 550px;
+}
+
+div.h1_to_right {
+    width: 95vw;
+    margin: 0 auto;
+    background-color: #f0f0f0;
+    padding: 20px;
+    height: 50px;
+    align-items: center;
+    display: flex;
+}
+
+div.h1_to_right p {
+    text-indent: 650px;
+}
+
+#heritage-list {
+    list-style: none;
+    padding: 0;
+}
+
+.heritage-item {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Центрирование по горизонтали */
+    margin-bottom: 20px;
+}
+
+.heritage-text {
+    margin-right: 20px; /* Добавляем отступ между текстом и изображением */
+}
+
+.heritage-image {
+    max-width: 400px; /* Установите желаемую ширину изображения */
+    max-height: 400px; /* Установите желаемую высоту изображения */
+}
+
+.centered {
+    width: 100%;
+    text-align: center;
+}
+
+footer {
+    background-color: #f0f0f0;
+    padding: 20px 0;
+    text-align: center;
+}
