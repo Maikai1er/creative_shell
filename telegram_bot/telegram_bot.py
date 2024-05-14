@@ -28,6 +28,15 @@ def stop():
     bot.stop_polling()
 
 
+@bot.message_handler(commands=['parse'])
+def parse():
+    send_notification('Warning, parsing started.')
+    try:
+        pass_to_redis()
+    except Exception as e:
+        send_notification(f'Error: {e}')
+
+
 def send_next_heritage():
     heritage_json = redis_client.lindex('current_heritage', 0)
     if heritage_json:

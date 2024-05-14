@@ -1,20 +1,26 @@
-import os
-import sys
-import django
+# import os
+# import sys
+# import django
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'creative_shell.settings')
-
-project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, project_root)
-django.setup()
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'creative_shell.settings')
+#
+# project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# sys.path.insert(0, project_root)
+# django.setup()
 
 
 from cultural_heritage.models import CulturalHeritage
 import requests
 from bs4 import BeautifulSoup
 import re
+import json
+import redis
 
-from telegram_bot.telegram_bot import send_notification, push_heritages_to_redis
+redis_host = 'redis'
+redis_port = 6379
+redis_db = 0
+redis_password = 'r3NVuM4N'
+redis_client = redis.StrictRedis(host=redis_host, port=redis_port, db=redis_db, password=redis_password)
 
 
 # returns heritages list in format:
@@ -77,17 +83,13 @@ def parse_wiki() -> list:
     return heritages
 
 
-def save_to_database():
+def pass_to_redis():
     heritages = parse_wiki()
 
-    send_notification('Warning, parsing started!')
-
-    new_heritages = []
     for heritage in heritages:
         if not CulturalHeritage.objects.filter(name=heritage['name']).exists():
-            new_heritages.append(heritage)
+            heritage_json = json.dumps(heritage)
+            redis_client.rpush('current_heritage', heritage_json)
 
-    push_heritages_to_redis(new_heritages)
 
-
-save_to_database()
+pass_to_redis()
