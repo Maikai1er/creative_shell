@@ -1,0 +1,20 @@
+.heritages {
+    text-align: center; /* Центрируем текст горизонтально */
+    font-size: 3em;
+}
+
+.heritages ul {
+    list-style-type: none; /* Убираем маркеры списка */
+    padding: 100px; /* Убираем внутренний отступ у списка */
+}
+
+.heritages li {
+    display: flex; /* Делаем каждый элемент списка flex-контейнером */
+    align-items: flex-start; /* Выравниваем содержимое элемента списка по верхнему краю */
+    justify-content: space-between; /* Распределяем элементы по горизонтали */
+    margin-bottom: 20px; /* Добавляем отступ снизу между элементами списка */
+}
+
+.heritages li img {
+    margin-left: 20px; /* Добавляем отступ справа для изображения */
+}

@@ -1,17 +1,18 @@
 import React from 'react';
 import Header from './Header';
-import HeritageList from './HeritageList'; // Импортируем компонент HeritageList из соответствующего файла
+import HeritageList from './HeritageList';
+import About from "./About";
 
 function App() {
   return (
     <div>
         <Header />
         <main>
-            <HeritageList /> {/* Добавляем компонент HeritageList в основной компонент */}
+            <About />
+            <HeritageList />
         </main>
     </div>
   );
 }
 
 export default App;
-

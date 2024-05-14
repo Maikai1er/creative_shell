@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './HeritageList.css'
 
 function HeritageList() {
   const [heritages, setHeritages] = useState([]);
@@ -35,22 +36,19 @@ function HeritageList() {
   };
 
   return (
-    <div>
-      <h1>Heritages</h1>
+    <div className='heritages'>
+      <h1>Disappeared Heritages</h1>
       <ul>
         {heritages.map((heritage, index) => (
             <li key={index}>
-                <p>Name: {heritage.name}</p>
-                <p>Location: {heritage.location}</p>
-                <p>Year WHS: {heritage.year_whs}</p>
-                <p>Year Endangered: {heritage.year_endangered}</p>
+                <p>Name: {heritage.name}<br />
+                    Location: {heritage.location}<br />
+                    Year WHS: {heritage.year_whs}<br />
+                    Year Endangered: {heritage.year_endangered}</p>
                 <img src="/static/website-stopper.jpg" alt="Heritage"/>
             </li>
         ))}
       </ul>
-        {isLoading ? (
-            <p>Loading...</p>
-      ) : null}
     </div>
   );
 }

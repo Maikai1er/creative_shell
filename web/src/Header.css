@@ -1,21 +1,23 @@
 h1.to_left {
-    width: 95vw;
-    margin: 0 auto;
-    background-color: #c7591c;
+    width: auto;
+    font-size: 9em;
+    margin: 0;
+    background-color: #c0bbbb;
     padding: 20px;
     text-align: center;
-    height: 50px;
+    height: 100px;
     align-items: center;
     display: flex;
-    text-indent: 550px;
+    text-indent: 450px;
 }
 
 h1.to_right {
-    width: 95vw;
-    margin-left: auto;
-    background-color: #f0f0f0;
-    padding: 20px;
-    height: 50px;
+    width: auto;
+    font-size: 9em;
+    margin: 0;
+    background-color: rgb(192, 187, 187);
+    text-indent: 600px;
+    height: 100px;
     align-items: center;
     display: flex;
 }
