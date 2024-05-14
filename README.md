@@ -34,3 +34,6 @@ SELECT usename FROM pg_user;
 ALTER SEQUENCE cultural_heritage_id_seq RESTART WITH 1;
 
 sudo service PostgreSQL start
+
+docker exec -it <django_container_name> python manage.py migrate
+

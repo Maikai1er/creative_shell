@@ -1,16 +1,15 @@
+import requests
 from telebot import TeleBot
 from telebot.types import ReplyKeyboardMarkup, KeyboardButton
-import json
-import redis
 
 TOKEN = '6962411316:AAHb_QYx3XU-JNib6gkhDhOXKEBiW_k6s74'
 bot = TeleBot(TOKEN)
-
-redis_host = 'redis'
-redis_port = 6379
-redis_db = 0
-redis_password = 'r3NVuM4N'
-redis_client = redis.StrictRedis(host=redis_host, port=redis_port, db=redis_db, password=redis_password)
+#
+# redis_host = 'redis'
+# redis_port = 6379
+# redis_db = 0
+# redis_password = 'r3NVuM4N'
+# redis_client = redis.StrictRedis(host=redis_host, port=redis_port, db=redis_db, password=redis_password)
 
 
 # To start moderating, use the '/start' command
@@ -28,19 +27,27 @@ def stop():
     bot.stop_polling()
 
 
-@bot.message_handler(commands=['parse'])
-def parse():
-    send_notification('Warning, parsing started.')
-    try:
-        pass_to_redis()
-    except Exception as e:
-        send_notification(f'Error: {e}')
+# @bot.message_handler(commands=['parse'])
+# def parse():
+#     send_notification('Warning, parsing started.')
+#     try:
+#         pass_to_redis()
+#     except Exception as e:
+#         send_notification(f'Error: {e}')
+
+
+def get_next_heritage():
+    response = requests.get('http://192.168.1.36:8000/get_next_heritage/')
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        return None
 
 
 def send_next_heritage():
-    heritage_json = redis_client.lindex('current_heritage', 0)
-    if heritage_json:
-        heritage = json.loads(heritage_json)
+    try:
+        heritage = get_next_heritage()
         heritage_text = (f'Name: {heritage["name"]}.\n'
                          f'Location: {heritage["location"]}.\n'
                          f'Year WHS: {heritage["year_whs"]}.\n'
@@ -48,47 +55,51 @@ def send_next_heritage():
         bot.send_message(chat_id='5787733609', text='New object received!')
         bot.send_message(chat_id='5787733609', text=heritage_text)
         bot.send_message(chat_id='5787733609', text='Choose an action:', reply_markup=create_keyboard(['approve', 'reject']))
+    except Exception as e:
+        bot.send_message(chat_id='5787733609', text='Error sending next heritage!')
+
+# @bot.message_handler(commands=['test'])
+# def test(message):
+#     bot.reply_to(message, text='This is a test command to try out the bot functionality!')
+#
+#     test_heritage = ParsedData(
+#         name='test_name',
+#         location='test_location',
+#         year_endangered=2000,
+#         year_whs=2024
+#     )
+#
+#     test_heritage.save()
+#
+#     bot.send_message(message.chat.id, 'Test heritage has been successfully saved to the temporary database!')
+
+
+def save_heritage(heritage_data, decision):
+    url = 'http://192.168.1.36:8000/save_heritage/'
+    payload = {'data': heritage_data, 'decision': decision}
+    response = requests.post(url, json=payload)
+    if response.status_code == 200:
+        bot.send_message(chat_id='5787733609', text='Successfully executed!')
     else:
-        bot.send_message(chat_id='5787733609', text='No pending objects.')
-
-
-def push_heritages_to_redis(heritages):
-    for heritage in heritages:
-        heritage_json = json.dumps(heritage)
-        redis_client.rpush('current_heritage', heritage_json)
-
-
-@bot.message_handler(commands=['test'])
-def test(message):
-    bot.reply_to(message, text='This is a test command to try out the bot functionality!')
-    test_heritage = {
-        'name': 'test_name',
-        'location': 'test_location',
-        'year_endangered': 2000,
-        'year_whs': 2024,
-    }
-    push_heritages_to_redis([test_heritage])
+        bot.send_message(chat_id='5787733609', text=f'Failed to save heritage:, {response.status_code}.\n'
+                                                    f'{response.text}.\n'
+                                                    f'{payload}.')
 
 
 @bot.message_handler(func=lambda message: message.text in ['approve', 'reject', '/approve', '/reject'])
 def handle_decision(message):
     try:
-        heritage_json = redis_client.lpop('current_heritage')
-        if heritage_json:
-            heritage = json.loads(heritage_json)
+        heritage = get_next_heritage()
+        if heritage:
             if message.text == '/approve' or message.text == 'approve':
-                # Yes, we have to import this here, otherwise server wouldn't start. Hala Django!
-                from cultural_heritage.save_object_to_database import save_object_to_database
-                save_object_to_database(heritage)
-                bot.send_message(message.chat.id, 'Heritage has been successfully saved to database!')
+                save_heritage(heritage, decision='approve')
             elif message.text == '/reject' or message.text == 'reject':
-                bot.send_message(message.chat.id, 'Heritage is rejected and will not be saved to database!')
-            # After moderating a heritage, send the next one
+                save_heritage(heritage, decision='reject')
             send_next_heritage()
         else:
             bot.send_message(message.chat.id, 'No pending objects to moderate.')
-    except TypeError:
-        bot.send_message(message.chat.id, 'TypeError, most likely, there is no current heritage to moderate.')
+    except Exception as e:
+        bot.send_message(message.chat.id, f'Failed to moderate heritage: {e}')
 
 
 def create_keyboard(buttons):

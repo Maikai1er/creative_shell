@@ -1,0 +1,14 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+{% block submit_buttons_bottom %}
+    {{ block.super }}
+    <input value="Parse" type="button" id="parseButton" />
+    <script>
+    document.getElementById('parseButton').addEventListener('click', function() {
+        console.log('Button clicked!');
+        window.location.href = '{% url 'update_data' %}';
+    });
+    </script>
+
+{% endblock %}

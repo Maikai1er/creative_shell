@@ -15,6 +15,7 @@ from bs4 import BeautifulSoup
 import re
 import json
 import redis
+from .models import ParsedData
 
 redis_host = 'redis'
 redis_port = 6379
@@ -83,13 +84,16 @@ def parse_wiki() -> list:
     return heritages
 
 
-def pass_to_redis():
+def pass_to_temp_table():
     heritages = parse_wiki()
 
     for heritage in heritages:
         if not CulturalHeritage.objects.filter(name=heritage['name']).exists():
-            heritage_json = json.dumps(heritage)
-            redis_client.rpush('current_heritage', heritage_json)
+            parsed_data = ParsedData.objects.create(
+                name=heritage.get('name', 'default name'),
+                location=heritage.get('location', 'Location Not Found'),
+                year_whs=heritage.get('Year (WHS)', 0000),
+                year_endangered=heritage.get('Year (Endangered)', 0000)
+            )
+            parsed_data.save()
 
-
-pass_to_redis()
