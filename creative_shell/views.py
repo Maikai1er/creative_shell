@@ -8,6 +8,8 @@ from cultural_heritage.models import CulturalHeritage
 from parser.models import ParsedData
 from parser.parser import pass_to_temp_table
 
+from data_management import save_to_heritage_table
+
 
 def update_data(request):
     pass_to_temp_table()
@@ -60,28 +62,26 @@ def get_next_heritage(request):
 
 
 @csrf_exempt
-def save_heritage(request):
+def save_heritage(request) -> JsonResponse:
     if request.method == 'POST':
         try:
             telebot_data = json.loads(request.body.decode('utf-8'))
-            data = telebot_data.get('data')
+            heritage = telebot_data.get('data')
             decision = telebot_data.get('decision')
 
-            if not (data and decision):
+            if not (heritage and decision):
                 raise ValueError('Missing data or decision')
 
-            name = data.get('name')
-            location = data.get('location')
-            year_whs = data.get('year_whs')
-            year_endangered = data.get('year_endangered')
+            name = heritage.get('name')
+            location = heritage.get('location')
+            year_whs = heritage.get('year_whs')
+            year_endangered = heritage.get('year_endangered')
 
             if not (name and location and year_whs and year_endangered):
                 raise ValueError('Missing required parameters')
 
             if decision == 'approve':
-                heritage = CulturalHeritage(name=name, location=location,
-                                            year_whs=year_whs, year_endangered=year_endangered)
-                heritage.save()
+                save_to_heritage_table(heritage)
                 ParsedData.objects.first().delete()
                 return JsonResponse({'message': 'Heritage saved successfully'})
             elif decision == 'reject':

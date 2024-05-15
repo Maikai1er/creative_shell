@@ -2,14 +2,7 @@ from cultural_heritage.models import CulturalHeritage
 import requests
 from bs4 import BeautifulSoup
 import re
-import redis
-from .models import ParsedData
-
-redis_host = 'redis'
-redis_port = 6379
-redis_db = 0
-redis_password = 'r3NVuM4N'
-redis_client = redis.StrictRedis(host=redis_host, port=redis_port, db=redis_db, password=redis_password)
+from creative_shell.data_management import save_to_parsed_table
 
 
 # returns heritages list in format:
@@ -72,15 +65,9 @@ def parse_wiki() -> list:
     return heritages
 
 
-def pass_to_temp_table():
+def pass_to_temp_table() -> None:
     heritages = parse_wiki()
 
     for heritage in heritages:
         if not CulturalHeritage.objects.filter(name=heritage['name']).exists():
-            parsed_data = ParsedData.objects.create(
-                name=heritage.get('name', 'default name'),
-                location=heritage.get('location', 'Location Not Found'),
-                year_whs=heritage.get('Year (WHS)', 0000),
-                year_endangered=heritage.get('Year (Endangered)', 0000)
-            )
-            parsed_data.save()
+            save_to_parsed_table(heritage)

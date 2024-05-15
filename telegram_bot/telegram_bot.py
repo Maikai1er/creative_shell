@@ -4,12 +4,6 @@ from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 
 TOKEN = '6962411316:AAHb_QYx3XU-JNib6gkhDhOXKEBiW_k6s74'
 bot = TeleBot(TOKEN)
-#
-# redis_host = 'redis'
-# redis_port = 6379
-# redis_db = 0
-# redis_password = 'r3NVuM4N'
-# redis_client = redis.StrictRedis(host=redis_host, port=redis_port, db=redis_db, password=redis_password)
 
 
 # To start moderating, use the '/start' command
@@ -25,15 +19,6 @@ def send_welcome(message):
 @bot.message_handler(commands=['stop'])
 def stop():
     bot.stop_polling()
-
-
-# @bot.message_handler(commands=['parse'])
-# def parse():
-#     send_notification('Warning, parsing started.')
-#     try:
-#         pass_to_redis()
-#     except Exception as e:
-#         send_notification(f'Error: {e}')
 
 
 def get_next_heritage():
