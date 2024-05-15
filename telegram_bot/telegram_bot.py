@@ -30,7 +30,7 @@ def get_next_heritage():
         return None
 
 
-def send_next_heritage():
+def send_next_heritage() -> None:
     try:
         heritage = get_next_heritage()
         heritage_text = (f'Name: {heritage["name"]}.\n'
@@ -87,7 +87,7 @@ def handle_decision(message):
         bot.send_message(message.chat.id, f'Failed to moderate heritage: {e}')
 
 
-def create_keyboard(buttons):
+def create_keyboard(buttons: list[str]) -> ReplyKeyboardMarkup:
     keyboard = ReplyKeyboardMarkup(row_width=1, resize_keyboard=True)
     for button in buttons:
         keyboard.add(KeyboardButton(text=button))

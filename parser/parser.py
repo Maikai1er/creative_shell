@@ -13,13 +13,12 @@ from creative_shell.data_management import save_to_parsed_table
 # SECOND WARNING: THIS IS AN OMEGA TEST PARSER!!!!!!
 
 
-def parse_wiki() -> list:
+def parse_wiki(url) -> list:
     # headers = {
     #     'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win 64 ; x64) Apple WeKit /537.36(KHTML , like Gecko) '
     #                   'Chrome/80.0.3987.162 Safari/537.36',
     #     'Accept-Language': 'en-US,en;q=0.9',
     # }
-    url = 'https://en.wikipedia.org/wiki/List_of_World_Heritage_in_Danger'
     response = requests.get(url, headers=None).text
     soup = BeautifulSoup(response, 'html.parser')
     table = soup.find(class_='wikitable plainrowheaders sortable')
@@ -65,8 +64,9 @@ def parse_wiki() -> list:
     return heritages
 
 
-def pass_to_temp_table() -> None:
-    heritages = parse_wiki()
+def parse_and_save_to_temp_table() -> None:
+    url = 'https://en.wikipedia.org/wiki/List_of_World_Heritage_in_Danger'
+    heritages = parse_wiki(url)
 
     for heritage in heritages:
         if not CulturalHeritage.objects.filter(name=heritage['name']).exists():

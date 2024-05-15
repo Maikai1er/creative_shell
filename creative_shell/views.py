@@ -1,22 +1,22 @@
 import json
 
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpRequest
 from django.db.models.functions import Random
 from django.views.decorators.csrf import csrf_exempt
 
 from cultural_heritage.models import CulturalHeritage
 from parser.models import ParsedData
-from parser.parser import pass_to_temp_table
+from parser.parser import parse_and_save_to_temp_table
 
 from data_management import save_to_heritage_table
 
 
-def update_data(request):
-    pass_to_temp_table()
+def update_data(request: HttpRequest) -> HttpResponse:
+    parse_and_save_to_temp_table()
     return HttpResponse("Parsing completed successfully")
 
 
-def load_more_heritages(request):
+def load_more_heritages(request: HttpRequest) -> JsonResponse:
 
     heritages = CulturalHeritage.objects.all().order_by(Random())[:5]
 
@@ -30,7 +30,7 @@ def load_more_heritages(request):
     return JsonResponse(data, safe=False)
 
 
-def index(request):
+def index(request: HttpRequest) -> JsonResponse:
     heritages = CulturalHeritage.objects.all().order_by(Random())[:5]
 
     data = [{
@@ -44,7 +44,7 @@ def index(request):
 
 
 @csrf_exempt
-def get_next_heritage(request):
+def get_next_heritage(request: HttpRequest) -> JsonResponse:
     if request.method == 'GET':
         heritage = ParsedData.objects.first()
         if heritage:
@@ -62,7 +62,7 @@ def get_next_heritage(request):
 
 
 @csrf_exempt
-def save_heritage(request) -> JsonResponse:
+def save_heritage(request: HttpRequest) -> JsonResponse:
     if request.method == 'POST':
         try:
             telebot_data = json.loads(request.body.decode('utf-8'))
