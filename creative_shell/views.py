@@ -62,30 +62,36 @@ def get_next_heritage(request):
 @csrf_exempt
 def save_heritage(request):
     if request.method == 'POST':
-        telebot_data = json.loads(request.body.decode('utf-8'))
-        data = telebot_data.get('data')
-        decision = telebot_data.get('decision')
+        try:
+            telebot_data = json.loads(request.body.decode('utf-8'))
+            data = telebot_data.get('data')
+            decision = telebot_data.get('decision')
 
-        if data and decision:
+            if not (data and decision):
+                raise ValueError('Missing data or decision')
+
             name = data.get('name')
             location = data.get('location')
             year_whs = data.get('year_whs')
             year_endangered = data.get('year_endangered')
 
-            if name and location and year_whs and year_endangered:
-                if decision == 'approve':
-                    heritage = CulturalHeritage(name=name, location=location, year_whs=year_whs, year_endangered=year_endangered)
-                    heritage.save()
-                    ParsedData.objects.first().delete()
-                    return JsonResponse({'message': 'Heritage saved successfully'})
-                elif decision == 'reject':
-                    ParsedData.objects.first().delete()
-                    return JsonResponse({'message': 'Heritage rejected'})
-                else:
-                    return JsonResponse({'message': 'Invalid decision'}, status=400)
+            if not (name and location and year_whs and year_endangered):
+                raise ValueError('Missing required parameters')
+
+            if decision == 'approve':
+                heritage = CulturalHeritage(name=name, location=location,
+                                            year_whs=year_whs, year_endangered=year_endangered)
+                heritage.save()
+                ParsedData.objects.first().delete()
+                return JsonResponse({'message': 'Heritage saved successfully'})
+            elif decision == 'reject':
+                ParsedData.objects.first().delete()
+                return JsonResponse({'message': 'Heritage rejected'})
             else:
-                return JsonResponse({'message': 'Missing required parameters'}, status=400)
-        else:
-            return JsonResponse({'message': 'Missing data or decision'}, status=400)
+                return JsonResponse({'message': 'Invalid decision'}, status=400)
+        except ValueError as ve:
+            return JsonResponse({'message': str(ve)}, status=400)
+        except Exception as e:
+            return JsonResponse({'message': 'An error occurred: {}'.format(str(e))}, status=500)
     else:
         return JsonResponse({'message': 'Method not allowed'}, status=405)

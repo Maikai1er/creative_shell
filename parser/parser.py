@@ -1,19 +1,7 @@
-# import os
-# import sys
-# import django
-
-# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'creative_shell.settings')
-#
-# project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# sys.path.insert(0, project_root)
-# django.setup()
-
-
 from cultural_heritage.models import CulturalHeritage
 import requests
 from bs4 import BeautifulSoup
 import re
-import json
 import redis
 from .models import ParsedData
 
@@ -96,4 +84,3 @@ def pass_to_temp_table():
                 year_endangered=heritage.get('Year (Endangered)', 0000)
             )
             parsed_data.save()
-
