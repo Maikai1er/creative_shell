@@ -1,23 +1,23 @@
 h1.to_left {
-    width: auto;
-    font-size: 9em;
+    max-width: 100%;
+    font-size: 5em;
     margin: 0;
     background-color: #c0bbbb;
     padding: 20px;
-    text-align: center;
     height: 100px;
     align-items: center;
     display: flex;
-    text-indent: 450px;
+    text-indent: 140%;
 }
 
 h1.to_right {
-    width: auto;
-    font-size: 9em;
+    max-width: 100%;
+    font-size: 5em;
     margin: 0;
     background-color: rgb(192, 187, 187);
-    text-indent: 600px;
+    text-indent: 130%;
     height: 100px;
     align-items: center;
     display: flex;
+    padding-bottom: 20px;
 }

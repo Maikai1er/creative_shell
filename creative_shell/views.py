@@ -8,7 +8,7 @@ from cultural_heritage.models import CulturalHeritage
 from parser.models import ParsedData
 from parser.parser import parse_and_save_to_temp_table
 
-from data_management import save_to_heritage_table
+from . import data_management
 
 
 def update_data(request: HttpRequest) -> HttpResponse:
@@ -81,7 +81,7 @@ def save_heritage(request: HttpRequest) -> JsonResponse:
                 raise ValueError('Missing required parameters')
 
             if decision == 'approve':
-                save_to_heritage_table(heritage)
+                data_management.save_to_heritage_table(heritage)
                 ParsedData.objects.first().delete()
                 return JsonResponse({'message': 'Heritage saved successfully'})
             elif decision == 'reject':

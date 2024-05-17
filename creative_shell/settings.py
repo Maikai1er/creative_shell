@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'cultural_heritage',
     'parser',
     'telegram_bot',
-    'corsheaders',
+    # 'corsheaders',
 ]
 
 MIDDLEWARE = [

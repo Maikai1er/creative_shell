@@ -1,14 +1,17 @@
 .heritages {
     text-align: center; /* Центрируем текст горизонтально */
-    font-size: 3em;
+    font-size: 2em;
 }
 
 .heritages ul {
+    max-width: 100%;
     list-style-type: none; /* Убираем маркеры списка */
     padding: 100px; /* Убираем внутренний отступ у списка */
 }
 
 .heritages li {
+    max-width: 100%;
+    margin: 0 auto;
     display: flex; /* Делаем каждый элемент списка flex-контейнером */
     align-items: flex-start; /* Выравниваем содержимое элемента списка по верхнему краю */
     justify-content: space-between; /* Распределяем элементы по горизонтали */
@@ -17,4 +20,5 @@
 
 .heritages li img {
     margin-left: 20px; /* Добавляем отступ справа для изображения */
+    max-width: 40%;
 }
