@@ -1,0 +1,11 @@
+/* custom.css */
+
+/* Диагональный разрез */
+/*.diagonal-section {*/
+/*  clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);*/
+/*}*/
+
+/* Класс для фонового цвета */
+.bg-orange-custom {
+  background-color: #f86434;
+}
