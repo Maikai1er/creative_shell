@@ -17,6 +17,17 @@ function PartnershipForm({ isOpen, onClose }) {
     e.preventDefault();
     try {
       console.log('Отправка данных:', formData);
+      const response = await fetch('http://localhost:8000/receive_contact_data/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+      if (!response.ok) {
+        throw new Error('Ошибка при отправке данных');
+      }
+      console.log('Данные успешно отправлены');
       onClose();
     } catch (error) {
       console.error('Ошибка отправки данных:', error);
@@ -35,32 +46,33 @@ function PartnershipForm({ isOpen, onClose }) {
         <button className="absolute top-4 right-4 text-gray-500 hover:text-gray-700" onClick={onClose}>X</button>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Имя"
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Имя"
+            required
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
           />
           <input
-              type="text"
-              name="contact"
-              value={formData.contact}
-              onChange={handleChange}
-              placeholder="Контакт"
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+            type="text"
+            name="contact"
+            value={formData.contact}
+            onChange={handleChange}
+            placeholder="Контакт"
+            required
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
           />
           <textarea
-              name="about"
-              value={formData.about}
-              onChange={handleChange}
-              placeholder="О себе"
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+            name="about"
+            value={formData.about}
+            onChange={handleChange}
+            placeholder="О себе"
+            required
+            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
           />
-          <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-700">Отправить
+          <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-700">
+            Отправить
           </button>
         </form>
       </div>

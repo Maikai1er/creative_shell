@@ -12,3 +12,16 @@ class CulturalHeritage(models.Model):
 
     def __str__(self):
         return self.name
+
+
+    #   This is here because i'm lazy. This is a model for contact info from partnership form
+class ContactData(models.Model):
+    name = models.CharField(max_length=255)
+    contacts = models.CharField(max_length=255)
+    about = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = 'contact_data'
+
+    def __str__(self):
+        return self.name

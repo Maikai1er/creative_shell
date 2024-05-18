@@ -25,4 +25,5 @@ urlpatterns = [
     path('load-more-heritages/', views.load_more_heritages, name='load_more_heritages',),
     path('get_next_heritage/', views.get_next_heritage, name='get_next_heritage'),
     path('save_heritage/', views.save_heritage, name='save_heritage'),
+    path('receive_contact_data/', views.receive_contact_data, name='receive_contact_data'),
 ]

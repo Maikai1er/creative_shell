@@ -95,3 +95,26 @@ def save_heritage(request: HttpRequest) -> JsonResponse:
             return JsonResponse({'message': 'An error occurred: {}'.format(str(e))}, status=500)
     else:
         return JsonResponse({'message': 'Method not allowed'}, status=405)
+
+
+@csrf_exempt
+def receive_contact_data(request: HttpRequest) -> JsonResponse:
+    if request.method == 'POST':
+        try:
+            contact_data = json.loads(request.body.decode('utf-8'))
+            name = contact_data.get('name')
+            contact = contact_data.get('contact')
+            about = contact_data.get('about')
+
+            if not (name and contact and about):
+                raise ValueError('Missing required data')
+
+            data_management.save_to_contact_data_table(contact_data)
+            return JsonResponse({'message': 'Contact data saved successfully'})
+
+        except ValueError as ve:
+            return JsonResponse({'message': str(ve)}, status=400)
+        except Exception as e:
+            return JsonResponse({'message': 'An error occurred: {}'.format(str(e))}, status=500)
+    else:
+        return JsonResponse({'message': 'Method not allowed'}, status=405)
