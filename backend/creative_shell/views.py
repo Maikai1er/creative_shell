@@ -37,8 +37,9 @@ def index(request: HttpRequest) -> JsonResponse:
     data = [{
         'name': heritage.name,
         'location': heritage.location,
-        'year_whs': heritage.year_whs,
-        'year_endangered': heritage.year_endangered
+        'category': heritage.category,
+        'year': heritage.year,
+        'description': heritage.description,
     } for heritage in heritages]
 
     return JsonResponse(data, safe=False)
