@@ -21,7 +21,7 @@ services:
 
   django:
     build:
-      context: .
+      context: ./backend
       dockerfile: Dockerfile
     ports:
       - 8000:8000
@@ -29,25 +29,16 @@ services:
       - postgres
       - redis
 
-  nginx:
-    build:
-      context: .
-      dockerfile: Dockerfile_nginx
-    ports:
-      - 80:80
-    depends_on:
-      - django
-
-  react:
-    build:
-      context: ./web
-      dockerfile: Dockerfile_web
-    ports:
-      - 3000:3000
-
   telegram-bot:
     build:
-      context: .
+      context: ./backend
       dockerfile: telegram_bot/Dockerfile_telegram_bot
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile_web
+    ports:
+      - 80:80
     depends_on:
       - django

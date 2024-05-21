@@ -6,7 +6,7 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /app
 
-COPY ../requirements.txt /app
+COPY requirements.txt /app
 COPY telegram_bot /app/telegram_bot
 
 RUN pip install -r requirements.txt

@@ -41,10 +41,12 @@ function HeritageList() {
       <ul>
         {heritages.map((heritage, index) => (
             <li key={index}>
-                <p>Name: {heritage.name}<br />
+                <p> Name: {heritage.name}<br />
                     Location: {heritage.location}<br />
-                    Year WHS: {heritage.year_whs}<br />
-                    Year Endangered: {heritage.year_endangered}</p>
+                    Year: {heritage.year}<br />
+                    Category: {heritage.category} <br />
+                    Description: {heritage.description}<br />
+                    </p>
                 <img src="/static/website-stopper.jpg" alt="Heritage"/>
             </li>
         ))}

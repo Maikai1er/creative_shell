@@ -18,6 +18,8 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
+ENV PYTHONPATH /app
+
 # Install system dependencies for psycopg2
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
