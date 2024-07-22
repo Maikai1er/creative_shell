@@ -1,9 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 function About() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true)
+  }, []);
+
+  const animateAbout = {
+    hidden: { opacity: 0, y: 300},
+    visible: { opacity: 2, y: 0, transition: { delay: 0.3, duration: 0.7 } },
+  }
+
   return (
     <div className="bg-orange-custom text-white text-lg md:text-xl lg:text-2xl p-6">
-      <div className="p-6">
+      <motion.div
+          className="p-6"
+          initial="hidden"
+          animate={isVisible ? 'visible' : 'hidden'}
+          variants={animateAbout}
+      >
         <h2 className="font-bold mb-4">ABOUT US</h2>
         <p className="mb-4">
           CREATIVE SHELL: An international donation standard for preservation of cultural heritage.
@@ -17,15 +34,20 @@ function About() {
           <li>Industry professionals have a structured digital library for research and education.</li>
         </ul>
         <p className="mb-4">Preserve history with a tap!</p>
-      </div>
-      <div className="p-6">
+      </motion.div>
+      <motion.div
+          className="p-6"
+          initial="hidden"
+          animate={isVisible ? 'visible' : 'hidden'}
+          variants={animateAbout}
+      >
         <p className="mb-4">
           Creative Shell is an international team with an extraordinary set of skills and expertise, built over two decades, spanning across culture, education, venture, technology, and urban development. We have been a pioneer in multimedia and digital twins in culture tech since 2004.
         </p>
         <p className="mt-4">
           We tap into a network of professionals in 20+ industries around the world, be that 500 Fortune execs or CERN researchers, internationally acclaimed auction houses, museums and Biennales, World Bank or UNESCO professionals, fintech, blockchain, robotics or metaverse innovators, educational policy-makers and more.
         </p>
-      </div>
+      </motion.div>
     </div>
   );
 }
