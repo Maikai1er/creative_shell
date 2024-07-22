@@ -40,14 +40,19 @@ function HeritageList() {
       <h1>Disappeared Heritages</h1>
       <ul>
         {heritages.map((heritage, index) => (
-            <li key={index}>
-                <p> Name: {heritage.name}<br />
-                    Location: {heritage.location}<br />
-                    Year: {heritage.year}<br />
-                    Description: {heritage.description}<br />
-                    </p>
-                <img src="/static/website-stopper.jpg" alt="Heritage"/>
-            </li>
+          <li key={index} className="heritage-item">
+            <p>
+              <strong>Name:</strong> {heritage.name}<br />
+              <strong>Location:</strong> {heritage.location}<br />
+              <strong>Year Endangered:</strong> {heritage.year}<br />
+              <strong>Description:</strong> {heritage.description}<br />
+            </p>
+            {heritage.image_path ? (
+              <img src={`http://localhost:8000${heritage.image_path}`} alt={heritage.name} className="heritage-image" />
+            ) : (
+              <img src="/static/website-stopper.jpg" alt="Heritage placeholder" className="heritage-image" />
+            )}
+          </li>
         ))}
       </ul>
     </div>
