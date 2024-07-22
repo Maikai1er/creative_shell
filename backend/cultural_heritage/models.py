@@ -5,8 +5,8 @@ class CulturalHeritage(models.Model):
     name = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
     year = models.CharField(default=2024, null=True)
-    description = models.TextField(null=True)
-    category = models.CharField(max_length=255, null=True)
+    reason = models.TextField(null=True, blank=True)
+    image_path = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:
         db_table = 'cultural_heritage'
