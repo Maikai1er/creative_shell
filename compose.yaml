@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
 
   postgres:
@@ -28,11 +30,15 @@ services:
     depends_on:
       - postgres
       - redis
+    volumes:
+      - shared-data:/app/shared
 
   telegram-bot:
     build:
       context: ./backend
       dockerfile: telegram_bot/Dockerfile_telegram_bot
+    volumes:
+      - shared-data:/app/shared
 
   frontend:
     build:
@@ -42,3 +48,8 @@ services:
       - 80:80
     depends_on:
       - django
+    volumes:
+      - shared-data:/app/frontend/public/static
+
+volumes:
+  shared-data:
