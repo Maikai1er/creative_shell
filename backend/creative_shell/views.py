@@ -24,8 +24,8 @@ def load_more_heritages(request: HttpRequest) -> JsonResponse:
         'name': heritage.name,
         'location': heritage.location,
         'category': heritage.category,
-        'year': heritage.year,
-        'description': heritage.description,
+        'year': heritage.year_endangered,
+        'reason': heritage.reason
     } for heritage in heritages]
 
     return JsonResponse(data, safe=False)

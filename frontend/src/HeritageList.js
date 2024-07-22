@@ -44,7 +44,6 @@ function HeritageList() {
                 <p> Name: {heritage.name}<br />
                     Location: {heritage.location}<br />
                     Year: {heritage.year}<br />
-                    Category: {heritage.category} <br />
                     Description: {heritage.description}<br />
                     </p>
                 <img src="/static/website-stopper.jpg" alt="Heritage"/>
