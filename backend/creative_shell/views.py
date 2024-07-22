@@ -17,15 +17,14 @@ def update_data(request: HttpRequest) -> HttpResponse:
 
 
 def load_more_heritages(request: HttpRequest) -> JsonResponse:
-
     heritages = CulturalHeritage.objects.all().order_by(Random())[:5]
 
     data = [{
         'name': heritage.name,
         'location': heritage.location,
-        'category': heritage.category,
-        'year': heritage.year_endangered,
-        'reason': heritage.reason
+        'year': heritage.year,
+        'description': heritage.description,
+        'image_path': heritage.image_path
     } for heritage in heritages]
 
     return JsonResponse(data, safe=False)
@@ -37,9 +36,9 @@ def index(request: HttpRequest) -> JsonResponse:
     data = [{
         'name': heritage.name,
         'location': heritage.location,
-        'category': heritage.category,
         'year': heritage.year,
         'description': heritage.description,
+        'image_path': heritage.image_path
     } for heritage in heritages]
 
     return JsonResponse(data, safe=False)
@@ -76,14 +75,22 @@ def save_heritage(request: HttpRequest) -> JsonResponse:
 
             name = heritage.get('name')
             location = heritage.get('location')
-            year_whs = heritage.get('year_whs')
-            year_endangered = heritage.get('year_endangered')
+            year_endangered = heritage.get('year')
+            reason = heritage.get('description')
+            image_path = heritage.get('image_path')
 
-            if not (name and location and year_whs and year_endangered):
+            if not (name and location and year_endangered and reason and image_path):
                 raise ValueError('Missing required parameters')
 
             if decision == 'approve':
-                data_management.save_to_heritage_table(heritage)
+                heritage_to_save = {
+                    'name': name,
+                    'location': location,
+                    'year_endangered': year_endangered,
+                    'reason': reason,
+                    'image_path': image_path
+                }
+                data_management.save_to_heritage_table(heritage_to_save)
                 ParsedData.objects.first().delete()
                 return JsonResponse({'message': 'Heritage saved successfully'})
             elif decision == 'reject':
