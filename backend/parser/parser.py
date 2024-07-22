@@ -59,7 +59,7 @@ def parse_wiki(url) -> list:
 
         if img_url:
             img_filename = f"{heritage['name'].replace('/', '_').replace(':', '_')}.jpg"
-            img_path = os.path.join('/app/shared', img_filename)
+            img_path = os.path.join('/app/shared/images/' + img_filename, img_filename)
             download_image(img_url, img_path)
             heritage['image_path'] = img_path
 
