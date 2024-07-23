@@ -1,3 +1,5 @@
+import os
+
 import requests
 from telebot import TeleBot
 from telebot.types import ReplyKeyboardMarkup, KeyboardButton
@@ -36,28 +38,18 @@ def send_next_heritage() -> None:
         heritage_text = (f'Name: {heritage['name']}.\n'
                          f'Location: {heritage['location']}.\n'
                          f'Year: {heritage['year']}.\n'
-                         f'Reason: {heritage['reason']}.\n'
-                         f'Image: Default.')
+                         f'Reason: {heritage['reason']}.')
         bot.send_message(chat_id='5787733609', text='New object received!')
         bot.send_message(chat_id='5787733609', text=heritage_text)
+        image_path = f'/app/shared/images/{heritage['name']}.jpg'
+        if os.path.exists(image_path):
+            with open(image_path, 'rb') as photo:
+                bot.send_photo(chat_id='5787733609', photo=photo)
+        else:
+            bot.send_message(chat_id='5787733609', text='Image not found!')
         bot.send_message(chat_id='5787733609', text='Choose an action:', reply_markup=create_keyboard(['approve', 'reject']))
     except Exception as e:
         bot.send_message(chat_id='5787733609', text='Error sending next heritage!')
-
-# @bot.message_handler(commands=['test'])
-# def test(message):
-#     bot.reply_to(message, text='This is a test command to try out the bot functionality!')
-#
-#     test_heritage = ParsedData(
-#         name='test_name',
-#         location='test_location',
-#         year_endangered=2000,
-#         year_whs=2024
-#     )
-#
-#     test_heritage.save()
-#
-#     bot.send_message(message.chat.id, 'Test heritage has been successfully saved to the temporary database!')
 
 
 def save_heritage(heritage_data, decision):

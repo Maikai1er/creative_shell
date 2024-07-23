@@ -33,6 +33,20 @@ def load_more_heritages() -> JsonResponse:
     return JsonResponse(data, safe=False)
 
 
+def index() -> JsonResponse:
+    heritages = CulturalHeritage.objects.all().order_by(Random())[:5]
+
+    data = [{
+        'name': heritage.name,
+        'location': heritage.location,
+        'year': heritage.year,
+        'reason': heritage.reason,
+        'image_path': heritage.image_path
+    } for heritage in heritages]
+
+    return JsonResponse(data, safe=False)
+
+
 @csrf_exempt
 def get_next_heritage(request: HttpRequest) -> JsonResponse:
     if request.method == 'GET':
@@ -69,8 +83,8 @@ def save_heritage(request: HttpRequest) -> JsonResponse:
             reason = heritage.get('reason')
             image_path = heritage.get('image_path')
 
-            if not (name and location and year and reason and image_path):
-                raise ValueError('Missing required parameters')
+            if not name:
+                raise ValueError('Missing name')
 
             if decision == 'approve':
                 heritage_to_save = {
