@@ -45,10 +45,11 @@ function HeritageList() {
                     Name: {heritage.name}<br />
                     Location: {heritage.location}<br />
                     Year: {heritage.year}<br />
-                    Description: {heritage.description}<br />
+                    Reason: {heritage.reason}<br />
                 </p>
                 {heritage.image_path && (
-                    <img src={`http://localhost:8000/static/${heritage.image_path}`} alt={heritage.name} />
+                    <img src={`/static/images/${heritage.image_path}`} alt={heritage.name}/>
+
                 )}
             </li>
         ))}

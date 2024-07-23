@@ -59,13 +59,13 @@ def parse_wiki(url) -> list:
 
         if img_url:
             img_filename = f"{heritage['name'].replace('/', '_').replace(':', '_')}.jpg"
-            img_path = os.path.join('/app/shared/images/' + img_filename, img_filename)
+            img_path = os.path.join('/app/shared/images/', img_filename)
             download_image(img_url, img_path)
             heritage['image_path'] = img_path
 
-        year_endangered_cell = cells[5]
-        if year_endangered_cell:
-            heritage['year_endangered'] = year_endangered_cell.get_text(strip=True)
+        year_cell = cells[5]
+        if year_cell:
+            heritage['year'] = year_cell.get_text(strip=True)
 
         reason_cell = cells[6]
         if reason_cell:

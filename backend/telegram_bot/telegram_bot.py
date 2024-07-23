@@ -33,10 +33,11 @@ def get_next_heritage():
 def send_next_heritage() -> None:
     try:
         heritage = get_next_heritage()
-        heritage_text = (f'Name: {heritage["name"]}.\n'
-                         f'Location: {heritage["location"]}.\n'
-                         f'Year WHS: {heritage["year_whs"]}.\n'
-                         f'Year Endangered: {heritage["year_endangered"]}.\n')
+        heritage_text = (f'Name: {heritage['name']}.\n'
+                         f'Location: {heritage['location']}.\n'
+                         f'Year: {heritage['year']}.\n'
+                         f'Reason: {heritage['reason']}.\n'
+                         f'Image: Default.')
         bot.send_message(chat_id='5787733609', text='New object received!')
         bot.send_message(chat_id='5787733609', text=heritage_text)
         bot.send_message(chat_id='5787733609', text='Choose an action:', reply_markup=create_keyboard(['approve', 'reject']))

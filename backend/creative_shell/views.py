@@ -23,7 +23,7 @@ def load_more_heritages(request: HttpRequest) -> JsonResponse:
         'name': heritage.name,
         'location': heritage.location,
         'year': heritage.year,
-        'description': heritage.description,
+        'reason': heritage.reason,
         'image_path': heritage.image_path
     } for heritage in heritages]
 
@@ -37,7 +37,7 @@ def index(request: HttpRequest) -> JsonResponse:
         'name': heritage.name,
         'location': heritage.location,
         'year': heritage.year,
-        'description': heritage.description,
+        'reason': heritage.reason,
         'image_path': heritage.image_path
     } for heritage in heritages]
 
@@ -52,8 +52,9 @@ def get_next_heritage(request: HttpRequest) -> JsonResponse:
             data = {
                 'name': heritage.name,
                 'location': heritage.location,
-                'year_whs': heritage.year_whs,
-                'year_endangered': heritage.year_endangered
+                'year': heritage.year,
+                'reason': heritage.reason,
+                'image_path': heritage.image_path
             }
             return JsonResponse(data)
         else:
@@ -75,18 +76,18 @@ def save_heritage(request: HttpRequest) -> JsonResponse:
 
             name = heritage.get('name')
             location = heritage.get('location')
-            year_endangered = heritage.get('year')
-            reason = heritage.get('description')
+            year = heritage.get('year')
+            reason = heritage.get('reason')
             image_path = heritage.get('image_path')
 
-            if not (name and location and year_endangered and reason and image_path):
+            if not (name and location and year and reason and image_path):
                 raise ValueError('Missing required parameters')
 
             if decision == 'approve':
                 heritage_to_save = {
                     'name': name,
                     'location': location,
-                    'year_endangered': year_endangered,
+                    'year': year,
                     'reason': reason,
                     'image_path': image_path
                 }

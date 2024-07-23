@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-
   postgres:
     image: postgres
     restart: always
@@ -31,14 +30,14 @@ services:
       - postgres
       - redis
     volumes:
-      - shared-data:/app/shared
+      - ./shared/images:/app/shared/images
 
   telegram-bot:
     build:
       context: ./backend
       dockerfile: telegram_bot/Dockerfile_telegram_bot
     volumes:
-      - shared-data:/app/shared
+      - ./shared/images:/app/shared/images
 
   frontend:
     build:
@@ -49,7 +48,8 @@ services:
     depends_on:
       - django
     volumes:
-      - shared-data:/app/frontend/public/static
+      - ./shared/images:/usr/share/nginx/html/static/images
 
 volumes:
-  shared-data:
+  shared:
+    external: true
