@@ -11,26 +11,15 @@ from parser.parser import parse_and_save_to_temp_table
 from . import data_management
 
 
-def update_data(request: HttpRequest) -> HttpResponse:
-    parse_and_save_to_temp_table()
-    return HttpResponse("Parsing completed successfully")
+def update_data() -> HttpResponse:
+    try:
+        parse_and_save_to_temp_table()
+        return HttpResponse("Parsing completed successfully")
+    except Exception as e:
+        return JsonResponse({"error": str(e)})
 
 
-def load_more_heritages(request: HttpRequest) -> JsonResponse:
-    heritages = CulturalHeritage.objects.all().order_by(Random())[:5]
-
-    data = [{
-        'name': heritage.name,
-        'location': heritage.location,
-        'year': heritage.year,
-        'reason': heritage.reason,
-        'image_path': heritage.image_path
-    } for heritage in heritages]
-
-    return JsonResponse(data, safe=False)
-
-
-def index(request: HttpRequest) -> JsonResponse:
+def load_more_heritages() -> JsonResponse:
     heritages = CulturalHeritage.objects.all().order_by(Random())[:5]
 
     data = [{
