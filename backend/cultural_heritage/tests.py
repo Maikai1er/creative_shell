@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db.utils import IntegrityError
 from django.test import TestCase
-from .models import CulturalHeritage
+from cultural_heritage.models import CulturalHeritage
 
 
 class CulturalHeritageModelTest(TestCase):
