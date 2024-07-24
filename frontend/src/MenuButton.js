@@ -4,7 +4,7 @@ import PartnershipForm from './PartnershipForm';
 
 function MenuButton() {
     const [isMenuVisible, setIsMenuVisible] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false); // Добавляем состояние для отображения модального окна
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleMenu = () => {
         setIsMenuVisible(!isMenuVisible);
@@ -55,7 +55,7 @@ function MenuButton() {
                         <li className="text-lg py-4 hover:bg-gray-200 cursor-pointer">Contacts</li>
                     </ul>
                 </div>
-                {isModalOpen && <PartnershipForm isOpen={true} onClose={closeModal} />} {/* Отображаем модальное окно, если isModalOpen === true */}
+                {isModalOpen && <PartnershipForm isOpen={true} onClose={closeModal} />}
             </div>
         </Router>
     );

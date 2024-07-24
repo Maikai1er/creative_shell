@@ -8,7 +8,6 @@ TOKEN = '6962411316:AAHb_QYx3XU-JNib6gkhDhOXKEBiW_k6s74'
 bot = TeleBot(TOKEN)
 
 
-# To start moderating, use the '/start' command
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     first_name = message.from_user.first_name

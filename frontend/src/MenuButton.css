@@ -28,7 +28,7 @@ button.MenuButton {
   height: 100px;
   width: 100px;
   z-index: 1;
-  transition: right 0.3s ease; /* Добавляем анимацию для кнопки */
+  transition: right 0.3s ease;
 }
 
 button.MenuButton:hover {
@@ -43,7 +43,7 @@ button.MenuButton:hover {
   height: 100%;
   background-color: #f8f9fa;
   border: 0;
-  transition: right 0.3s ease; /* Добавляем анимацию для меню */
+  transition: right 0.3s ease;
   z-index: 2;
 }
 

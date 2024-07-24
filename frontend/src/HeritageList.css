@@ -1,24 +1,24 @@
 .heritages {
-    text-align: center; /* Центрируем текст горизонтально */
+    text-align: center;
     font-size: 2em;
 }
 
 .heritages ul {
     max-width: 100%;
-    list-style-type: none; /* Убираем маркеры списка */
-    padding: 100px; /* Убираем внутренний отступ у списка */
+    list-style-type: none;
+    padding: 100px;
 }
 
 .heritages li {
     max-width: 100%;
     margin: 0 auto;
-    display: flex; /* Делаем каждый элемент списка flex-контейнером */
-    align-items: flex-start; /* Выравниваем содержимое элемента списка по верхнему краю */
-    justify-content: space-between; /* Распределяем элементы по горизонтали */
-    margin-bottom: 20px; /* Добавляем отступ снизу между элементами списка */
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .heritages li img {
-    margin-left: 20px; /* Добавляем отступ справа для изображения */
+    margin-left: 20px;
     max-width: 40%;
 }
