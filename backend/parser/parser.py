@@ -17,9 +17,9 @@ def download_image(img_url, save_path):
         with open(save_path, 'wb') as file:
             for chunk in img_response.iter_content(chunk_size=8192):
                 file.write(chunk)
-        print(f"Image downloaded: {save_path}")
+        print(f'Image downloaded: {save_path}')
     except requests.RequestException as e:
-        print(f"Error downloading image {img_url}: {e}")
+        print(f'Error downloading image {img_url}: {e}')
 
 
 def get_image_url(cell):
