@@ -2,7 +2,7 @@ from django.db import models
 
 
 class ParsedData(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     location = models.CharField(max_length=255)
     year = models.CharField(default='Default', null=True)
     reason = models.TextField(null=True, blank=True)
