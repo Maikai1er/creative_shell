@@ -59,12 +59,8 @@ WSGI_APPLICATION = 'creative_shell.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'sandBox',
-        'USER': 'postgres',
-        'PASSWORD': 'TestPassV3TTR',
-        'HOST': 'postgres',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
     }
 }
 
@@ -87,6 +83,6 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 STATIC_URL = '/static/'
-STATIC_ROOT = '/usr/share/nginx/html/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

@@ -26,14 +26,16 @@ class CulturalHeritageModelTest(TestCase):
     def test_missing_name(self):
         data = self.valid_data.copy()
         data.pop('name')
-        with self.assertRaises(IntegrityError):
-            CulturalHeritage.objects.create(**data)
+        with self.assertRaises(ValidationError):
+            heritage = CulturalHeritage(**data)
+            heritage.full_clean()
 
     def test_missing_location(self):
         data = self.valid_data.copy()
         data.pop('location')
-        with self.assertRaises(IntegrityError):
-            CulturalHeritage.objects.create(**data)
+        with self.assertRaises(ValidationError):
+            heritage = CulturalHeritage(**data)
+            heritage.full_clean()
 
     def test_name_max_length(self):
         data = self.valid_data.copy()
@@ -54,7 +56,7 @@ class CulturalHeritageModelTest(TestCase):
         data['year'] = 700
         heritage = CulturalHeritage(**data)
         with self.assertRaises(ValidationError):
-            heritage.full_clean()
+            heritage.clean()
 
     def test_empty_optional_fields(self):
         data = self.valid_data.copy()

@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: test_db
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+        ports:
+          - 5432:5432
+        options: --health-cmd "pg_isready" --health-interval 10s
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        pip install -r backend/requirements.txt
+
+    - name: Set up Django settings
+      run: |
+        cp backend/creative_shell/test_settings.py backend/creative_shell/settings.py
+
+    - name: Run migrations
+      run: |
+        python backend/manage.py migrate --settings=creative_shell.test_settings
+
+    - name: Run tests
+      run: |
+        python backend/manage.py test --settings=creative_shell.test_settings

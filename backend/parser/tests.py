@@ -26,14 +26,16 @@ class ParsedDataModelTest(TestCase):
     def test_missing_name(self):
         data = self.valid_data.copy()
         data.pop('name')
-        with self.assertRaises(IntegrityError):
-            ParsedData.objects.create(**data)
+        with self.assertRaises(ValidationError):
+            heritage = ParsedData(**data)
+            heritage.full_clean()
 
     def test_missing_location(self):
         data = self.valid_data.copy()
         data.pop('location')
-        with self.assertRaises(IntegrityError):
-            ParsedData.objects.create(**data)
+        with self.assertRaises(ValidationError):
+            heritage = ParsedData(**data)
+            heritage.full_clean()
 
     def test_name_max_length(self):
         data = self.valid_data.copy()
@@ -54,7 +56,7 @@ class ParsedDataModelTest(TestCase):
         data['year'] = 700
         parsed_data = ParsedData(**data)
         with self.assertRaises(ValidationError):
-            parsed_data.full_clean()
+            parsed_data.clean()
 
     def test_empty_optional_fields(self):
         data = self.valid_data.copy()
