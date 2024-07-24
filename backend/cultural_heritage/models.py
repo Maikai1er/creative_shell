@@ -21,9 +21,9 @@ class CulturalHeritage(models.Model):
 
 
 class ContactData(models.Model):
-    name = models.CharField()
+    name = models.CharField(max_length=255)
     contacts = models.CharField(max_length=255)
-    about = models.TextField(max_length=255)
+    about = models.TextField()
 
     class Meta:
         db_table = 'contact_data'
