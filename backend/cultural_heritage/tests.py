@@ -80,3 +80,9 @@ class CulturalHeritageModelTest(TestCase):
         self.assertEqual(heritage.year, 'Default')
         self.assertIsNone(heritage.reason)
         self.assertIsNone(heritage.image_path)
+
+    def test_duplicate_name(self):
+        CulturalHeritage.objects.create(**self.valid_data)
+        with self.assertRaises(IntegrityError):
+            duplicate_heritage = CulturalHeritage(**self.valid_data)
+            duplicate_heritage.save()
