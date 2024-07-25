@@ -1,24 +1,84 @@
 .heritages {
-    text-align: center;
-    font-size: 2em;
+  text-align: center;
+  font-size: 1.2em;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.heritages h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
 }
 
 .heritages ul {
-    max-width: 100%;
-    list-style-type: none;
-    padding: 100px;
+  list-style-type: none;
+  padding: 0;
 }
 
-.heritages li {
-    max-width: 100%;
-    margin: 0 auto;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 20px;
+.heritage-item {
+  margin-bottom: 20px;
 }
 
-.heritages li img {
+.heritage-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.heritage-info {
+  flex: 1;
+  text-align: left;
+  padding-right: 20px;
+}
+
+.heritage-info h2 {
+  margin-top: 0;
+  font-size: 1.8em;
+}
+
+.heritage-year {
+  display: inline-block;
+  background-color: #e2e8f0;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
+.heritage-info p {
+  margin: 10px 0;
+}
+
+.heritage-image {
+  margin-top: 20px;
+  max-width: 300px;
+  width: 100%;
+}
+
+.heritage-image img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.loading-message {
+  font-style: italic;
+  margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+  .heritage-card {
+    flex-direction: row;
+  }
+
+  .heritage-image {
+    margin-top: 0;
     margin-left: 20px;
-    max-width: 40%;
+    flex-shrink: 0;
+  }
 }

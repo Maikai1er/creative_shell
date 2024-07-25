@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './HeritageList.css'
+import './HeritageList.css';
 
 function HeritageList() {
   const [heritages, setHeritages] = useState([]);
@@ -36,26 +36,30 @@ function HeritageList() {
   };
 
   return (
-    <div className='heritages'>
-      <h1>Disappeared Heritages</h1>
+    <div className="heritages">
+      <h1>Исчезнувшее культурное наследие</h1>
       <ul>
         {heritages.map((heritage, index) => (
-            <li key={index}>
-                <p>
-                    Name: {heritage.name}<br />
-                    Location: {heritage.location}<br />
-                    Year: {heritage.year}<br />
-                    Reason: {heritage.reason}<br />
-                </p>
-                {heritage.image_path && (
-                    <img src={`/static/images/${heritage.image_path}`} alt={heritage.name}/>
-
-                )}
-            </li>
+          <li key={index} className="heritage-item">
+            <div className="heritage-card">
+              <div className="heritage-info">
+                <h2>{heritage.name}</h2>
+                <span className="heritage-year">{heritage.year}</span>
+                <p><strong>Местоположение:</strong> {heritage.location}</p>
+                <p><strong>Причина:</strong> {heritage.reason}</p>
+              </div>
+              {heritage.image_path && (
+                <div className="heritage-image">
+                  <img src={`/static/images/${heritage.image_path}`} alt={heritage.name} />
+                </div>
+              )}
+            </div>
+          </li>
         ))}
       </ul>
+      {isLoading && <p className="loading-message">Загрузка дополнительных объектов...</p>}
     </div>
   );
-}
+};
 
 export default HeritageList;
