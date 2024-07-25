@@ -79,7 +79,7 @@ class ParsedDataModelTest(TestCase):
             name='Machu Picchu',
             location='Peru'
         )
-        self.assertEqual(parsed_data.year, 'Default')
+        self.assertEqual(parsed_data.year, '')
         self.assertIsNone(parsed_data.reason)
         self.assertIsNone(parsed_data.image_path)
 

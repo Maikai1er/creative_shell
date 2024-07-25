@@ -79,7 +79,7 @@ class CulturalHeritageModelTest(TestCase):
             name='Machu Picchu',
             location='Peru'
         )
-        self.assertEqual(heritage.year, 'Default')
+        self.assertEqual(heritage.year, '')
         self.assertIsNone(heritage.reason)
         self.assertIsNone(heritage.image_path)
 
