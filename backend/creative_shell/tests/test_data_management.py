@@ -4,6 +4,7 @@ from cultural_heritage.models import CulturalHeritage, ContactData
 from parser.models import ParsedData
 from creative_shell.data_management import save_to_heritage_table, save_to_parsed_table, save_to_contact_data_table
 
+
 class DataManagementTests(TestCase):
 
     def test_save_to_heritage_table(self):
