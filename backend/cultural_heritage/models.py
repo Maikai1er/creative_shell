@@ -5,9 +5,9 @@ from django.db import models
 class CulturalHeritage(models.Model):
     name = models.CharField(max_length=255, unique=True)
     location = models.CharField(max_length=255)
-    year = models.CharField(max_length=255, default='Default', null=True)
-    reason = models.TextField(null=True, blank=True)
-    image_path = models.CharField(max_length=255, null=True, blank=True)
+    year = models.CharField(max_length=255, blank=True, default='')
+    reason = models.TextField(blank=True, default='')
+    image_path = models.CharField(max_length=255, blank=True, default='')
 
     def clean(self):
         if not isinstance(self.year, str):
@@ -22,8 +22,8 @@ class CulturalHeritage(models.Model):
 
 class ContactData(models.Model):
     name = models.CharField(max_length=255)
-    contacts = models.CharField(max_length=255)
-    about = models.TextField()
+    contacts = models.TextField()
+    about = models.TextField(blank=True, default='')
 
     class Meta:
         db_table = 'contact_data'

@@ -4,7 +4,6 @@ from cultural_heritage.models import CulturalHeritage, ContactData
 from parser.models import ParsedData
 from creative_shell.data_management import save_to_heritage_table, save_to_parsed_table, save_to_contact_data_table
 
-
 class DataManagementTests(TestCase):
 
     def test_save_to_heritage_table(self):
@@ -42,7 +41,7 @@ class DataManagementTests(TestCase):
     def test_save_to_contact_data_table(self):
         contact_data = {
             'name': 'Test Contact',
-            'contact': '123-456-7890',
+            'contacts': '123-456-7890',
             'about': 'Test About'
         }
         save_to_contact_data_table(contact_data)
@@ -78,12 +77,18 @@ class DataManagementTests(TestCase):
         self.assertEqual(parsed.image_path, '')
 
     def test_save_to_contact_data_table_defaults(self):
-        contact_data = {}
+        contact_data = {
+            'name': 'default name',
+            'contacts': 'default contact'
+        }
+
         save_to_contact_data_table(contact_data)
 
         contact = ContactData.objects.get(name='default name')
-        self.assertEqual(contact.contacts, 'Contact Not Found')
-        self.assertEqual(contact.about, 'About Field is Empty')
+
+        self.assertEqual(contact.contacts, 'default contact')
+
+        self.assertEqual(contact.about, '')
 
     def test_save_to_heritage_table_missing_required_fields(self):
         heritage_data = {}

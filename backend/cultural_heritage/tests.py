@@ -51,6 +51,13 @@ class CulturalHeritageModelTest(TestCase):
         with self.assertRaises(ValidationError):
             heritage.full_clean()
 
+    def test_year_max_length(self):
+        data = self.valid_data.copy()
+        data['year'] = 'A' * 256
+        parsed_data = CulturalHeritage(**data)
+        with self.assertRaises(ValidationError):
+            parsed_data.full_clean()
+
     def test_invalid_year_type(self):
         data = self.valid_data.copy()
         data['year'] = 700
@@ -60,19 +67,13 @@ class CulturalHeritageModelTest(TestCase):
 
     def test_empty_optional_fields(self):
         data = self.valid_data.copy()
+        data['year'] = ''
         data['reason'] = ''
         data['image_path'] = ''
         heritage = CulturalHeritage.objects.create(**data)
+        self.assertEqual(heritage.year, '')
         self.assertEqual(heritage.reason, '')
         self.assertEqual(heritage.image_path, '')
-
-    def test_null_optional_fields(self):
-        data = self.valid_data.copy()
-        data['reason'] = None
-        data['image_path'] = None
-        heritage = CulturalHeritage.objects.create(**data)
-        self.assertIsNone(heritage.reason)
-        self.assertIsNone(heritage.image_path)
 
     def test_default_values(self):
         heritage = CulturalHeritage.objects.create(
@@ -80,8 +81,8 @@ class CulturalHeritageModelTest(TestCase):
             location='Peru'
         )
         self.assertEqual(heritage.year, '')
-        self.assertIsNone(heritage.reason)
-        self.assertIsNone(heritage.image_path)
+        self.assertEqual(heritage.reason, '')
+        self.assertEqual(heritage.image_path, '')
 
     def test_duplicate_name(self):
         CulturalHeritage.objects.create(**self.valid_data)
