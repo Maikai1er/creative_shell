@@ -6,7 +6,7 @@ def save_to_heritage_table(heritage_to_save: dict) -> None:
     cultural_heritage = CulturalHeritage(
         name=heritage_to_save.get('name', 'default name'),
         location=heritage_to_save.get('location', 'Location Not Found'),
-        year=heritage_to_save.get('year', 'Default'),
+        year=heritage_to_save.get('year', ''),
         reason=heritage_to_save.get('reason', ''),
         image_path=heritage_to_save.get('image_path', '')
     )
@@ -17,7 +17,7 @@ def save_to_parsed_table(heritage_to_save: dict) -> None:
     parsed_data = ParsedData.objects.create(
         name=heritage_to_save.get('name', 'default name'),
         location=heritage_to_save.get('location', 'Location Not Found'),
-        year=heritage_to_save.get('year', 'Default'),
+        year=heritage_to_save.get('year', ''),
         reason=heritage_to_save.get('reason', ''),
         image_path=heritage_to_save.get('image_path', '')
     )

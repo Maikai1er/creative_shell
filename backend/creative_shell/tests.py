@@ -60,7 +60,7 @@ class DataManagementTests(TestCase):
 
         heritage = CulturalHeritage.objects.get(name='Great Wall of China')
         self.assertEqual(heritage.location, 'China')
-        self.assertEqual(heritage.year, 'Default')
+        self.assertEqual(heritage.year, '')
         self.assertEqual(heritage.reason, '')
         self.assertEqual(heritage.image_path, '')
 
@@ -73,7 +73,7 @@ class DataManagementTests(TestCase):
 
         parsed = ParsedData.objects.get(name='Great Wall of China')
         self.assertEqual(parsed.location, 'China')
-        self.assertEqual(parsed.year, 'Default')
+        self.assertEqual(parsed.year, '')
         self.assertEqual(parsed.reason, '')
         self.assertEqual(parsed.image_path, '')
 
