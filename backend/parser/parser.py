@@ -1,4 +1,6 @@
 import os
+import re
+
 import requests
 from bs4 import BeautifulSoup
 from cultural_heritage.models import CulturalHeritage
@@ -49,9 +51,47 @@ def parse_wiki(url) -> list:
             heritage['name'] = name_cell.get_text(strip=True)
 
         location_cell = cells[1]
-        link = location_cell.find('a', href=True, title=True)
-        if link:
-            heritage['location'] = link.get_text(strip=True)
+        if isinstance(location_cell, str):
+            soup = BeautifulSoup(location_cell, 'html.parser')
+        else:
+            soup = location_cell
+
+        for elem in soup.select('.geo-inline, .geo'):
+            elem.decompose()
+
+        for elem in soup.select('[style*="display: none"]'):
+            elem.decompose()
+
+        cell_text = soup.get_text(separator=' ', strip=True)
+
+        country_match = re.search(r'\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\b', cell_text)
+        country = country_match.group(1) if country_match else None
+
+        region_matches = re.findall(r'\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*(?:\s+[A-Z][a-z]+)*)\b', cell_text)
+        regions = [match for match in region_matches if match != country]
+
+        place_links = soup.find_all('a')
+        place_names = [link.get_text() for link in place_links if link.get_text() not in (country, *regions)]
+
+        if not country:
+            flag_span = soup.find('span', class_='flagicon')
+            if flag_span and flag_span.find_next_sibling(text=True):
+                country = flag_span.find_next_sibling(text=True).strip()
+
+        regions = list(dict.fromkeys(filter(None, regions)))
+        place_names = list(dict.fromkeys(filter(None, place_names)))
+
+        location_parts = []
+        if country:
+            location_parts.append(country)
+        if regions:
+            location_parts.append(', '.join(regions))
+        if place_names:
+            location_parts.append(', '.join(place_names))
+
+        location_string = ' - '.join(location_parts)
+
+        heritage['location'] = location_string
 
         img_tag = cells[0].find('img')
         if img_tag and 'src' in img_tag.attrs:

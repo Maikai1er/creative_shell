@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PartnershipForm from './PartnershipForm';
+import './MenuButton.css'
 
 function MenuButton() {
     const [isMenuVisible, setIsMenuVisible] = useState(false);
@@ -17,14 +18,6 @@ function MenuButton() {
         if (menu && menuButton && !menu.contains(event.target) && !menuButton.contains(event.target)) {
             setIsMenuVisible(false);
         }
-    };
-
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
     };
 
     useEffect(() => {
@@ -45,12 +38,12 @@ function MenuButton() {
             </button>
             <div className={`Menu ${isMenuVisible ? 'active' : ''}`}>
                 <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/partnership" onClick={openModal}>Partnership</Link></li>
-                    <li><Link to="/contacts">Contact</Link></li>
+                    <li><Link to="/" onClick={() => setIsMenuVisible(false)}>Home</Link></li>
+                    <li><button onClick={() => { setIsModalOpen(true); setIsMenuVisible(false); }}>Partnership</button></li>
+                    <li><Link to="/contacts" onClick={() => setIsMenuVisible(false)}>Contact</Link></li>
                 </ul>
             </div>
-            {isModalOpen && <PartnershipForm onClose={closeModal} />}
+            <PartnershipForm isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </div>
     );
 }
