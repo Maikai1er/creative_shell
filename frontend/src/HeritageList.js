@@ -105,6 +105,6 @@ function HeritageList() {
       {isLoading && <p className="loading-message">Loading additional content...</p>}
     </div>
   );
-};
+}
 
 export default HeritageList;

@@ -29,7 +29,7 @@ def save_to_parsed_table(heritage_to_save: dict) -> None:
     required_fields = ['name', 'location']
     for field in required_fields:
         if not heritage_to_save.get(field):
-            raise ValidationError(f'{field} is required')
+            raise ValidationError(f'{field} is required for {heritage_to_save.get('name')}')
 
     parsed_data = ParsedData.objects.create(
         name=heritage_to_save.get('name'),
