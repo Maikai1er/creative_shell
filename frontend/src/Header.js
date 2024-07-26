@@ -1,5 +1,6 @@
-import { motion } from 'framer-motion';
 import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import './Header.css';
 
 function Header() {
   const [isVisible, setIsVisible] = useState(false);
@@ -9,21 +10,21 @@ function Header() {
   }, []);
 
   const variantsLeft = {
-    hidden: { opacity: 0, x: -200 },
-    visible: { opacity: 2, x: 0, transition: { duration: 0.4 } },
+    hidden: { opacity: 0, x: -100 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } },
   };
 
   const variantsRight = {
-    hidden: { opacity: 0, x: 200 },
-    visible: { opacity: 2, x: 0, transition: { duration: 0.4 } },
+    hidden: { opacity: 0, x: 100 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } },
   };
 
   return (
-    <div className="flex justify-center items-center">
-      <header>
-        <h1 className="text-5xl md:text-8xl text-center">
+    <header className="header">
+      <div className="header-content">
+        <h1 className="header-title">
           <motion.span
-            className="block ml-10 md:ml-20 lg:ml-50"
+            className="header-word creative"
             initial="hidden"
             animate={isVisible ? 'visible' : 'hidden'}
             variants={variantsLeft}
@@ -31,7 +32,7 @@ function Header() {
             Creative
           </motion.span>
           <motion.span
-            className="block mr-10 md:mr-20 lg:mr-50"
+            className="header-word shell"
             initial="hidden"
             animate={isVisible ? 'visible' : 'hidden'}
             variants={variantsRight}
@@ -39,7 +40,7 @@ function Header() {
             Shell
           </motion.span>
           <motion.span
-            className="block ml-10 md:ml-20 lg:ml-50"
+            className="header-word project"
             initial="hidden"
             animate={isVisible ? 'visible' : 'hidden'}
             variants={variantsLeft}
@@ -47,8 +48,8 @@ function Header() {
             Project
           </motion.span>
         </h1>
-      </header>
-    </div>
+      </div>
+    </header>
   );
 }
 

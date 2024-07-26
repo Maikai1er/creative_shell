@@ -1,23 +1,60 @@
-h1.to_left {
-    max-width: 100%;
-    font-size: 5em;
-    margin: 0;
-    background-color: #c0bbbb;
-    padding: 20px;
-    height: 100px;
-    align-items: center;
-    display: flex;
-    text-indent: 140%;
+.header {
+  background: linear-gradient(to right, #1a202c, #2d3748);
+  padding: 3rem 1rem;
 }
 
-h1.to_right {
-    max-width: 100%;
-    font-size: 5em;
-    margin: 0;
-    background-color: rgb(192, 187, 187);
-    text-indent: 130%;
-    height: 100px;
-    align-items: center;
-    display: flex;
-    padding-bottom: 20px;
+.header-content {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.header-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  text-align: center;
+}
+
+.header-word {
+  display: block;
+  margin-bottom: 0.5rem;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.creative {
+  background-image: linear-gradient(to right, #63b3ed, #4fd1c5);
+}
+
+.shell {
+  background-image: linear-gradient(to right, #9f7aea, #ed64a6);
+}
+
+.project {
+  background-image: linear-gradient(to right, #fbd38d, #ed8936);
+}
+
+@media (min-width: 640px) {
+  .header-title {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .header-title {
+    font-size: 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .header-title {
+    font-size: 6rem;
+  }
+}
+
+@supports (-webkit-background-clip: text) {
+  .header-word {
+    -webkit-text-fill-color: transparent;
+  }
 }

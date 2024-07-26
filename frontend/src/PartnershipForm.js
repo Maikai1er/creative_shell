@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
+import { motion } from 'framer-motion';
+import { X } from 'lucide-react';
 
 function PartnershipForm({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
@@ -39,45 +41,80 @@ function PartnershipForm({ isOpen, onClose }) {
       isOpen={isOpen}
       onRequestClose={onClose}
       ariaHideApp={false}
-      className="fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-50"
-      overlayClassName="fixed inset-0 bg-transparent"
+      className="fixed inset-0 flex justify-center items-center"
+      overlayClassName="fixed inset-0 bg-black bg-opacity-50"
     >
-      <div className="bg-white p-8 rounded-lg max-w-md mx-auto">
-        <button className="absolute top-4 right-4 text-gray-500 hover:text-gray-700" onClick={onClose}>X</button>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Имя"
-            required
-            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-          />
-          <input
-            type="text"
-            name="contact"
-            value={formData.contact}
-            onChange={handleChange}
-            placeholder="Контакт"
-            required
-            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-          />
-          <textarea
-            name="about"
-            value={formData.about}
-            onChange={handleChange}
-            placeholder="О себе"
-            required
-            className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-          />
-          <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-700">
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        className="bg-white p-8 rounded-lg w-full max-w-2xl mx-4 shadow-2xl"
+      >
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold text-gray-800">Свяжитесь с нами</h2>
+          <button
+            onClick={onClose}
+            className="text-gray-500 hover:text-gray-700 transition-colors"
+          >
+            <X size={24} />
+          </button>
+        </div>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+              Имя
+            </label>
+            <input
+              id="name"
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
+              placeholder="Введите ваше имя"
+            />
+          </div>
+          <div>
+            <label htmlFor="contact" className="block text-sm font-medium text-gray-700 mb-1">
+              Контакт
+            </label>
+            <input
+              id="contact"
+              type="text"
+              name="contact"
+              value={formData.contact}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow"
+              placeholder="Email или телефон"
+            />
+          </div>
+          <div>
+            <label htmlFor="about" className="block text-sm font-medium text-gray-700 mb-1">
+              О себе
+            </label>
+            <textarea
+              id="about"
+              name="about"
+              value={formData.about}
+              onChange={handleChange}
+              required
+              rows="4"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-shadow resize-none"
+              placeholder="Расскажите немного о себе и цели обращения"
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+          >
             Отправить
           </button>
         </form>
-      </div>
+      </motion.div>
     </Modal>
   );
 }
 
-export default PartnershipForm;
+export default PartnershipForm
