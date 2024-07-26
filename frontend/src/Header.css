@@ -1,60 +1,40 @@
 .header {
-  background: linear-gradient(to right, #1a202c, #2d3748);
-  padding: 3rem 1rem;
+  background-color: #f8f9fa;
+  padding: 2rem 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header-content {
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
 .header-title {
-  font-size: 2.25rem;
-  font-weight: 800;
+  font-size: 2.5rem;
+  font-weight: 700;
   letter-spacing: -0.025em;
   text-align: center;
+  color: #333;
 }
 
 .header-word {
-  display: block;
-  margin-bottom: 0.5rem;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
+  display: inline-block;
+  margin: 0 0.5rem;
 }
 
-.creative {
-  background-image: linear-gradient(to right, #63b3ed, #4fd1c5);
-}
-
-.shell {
-  background-image: linear-gradient(to right, #9f7aea, #ed64a6);
-}
-
-.project {
-  background-image: linear-gradient(to right, #fbd38d, #ed8936);
-}
-
-@media (min-width: 640px) {
+@media (max-width: 768px) {
   .header-title {
-    font-size: 3rem;
+    font-size: 2rem;
   }
-}
 
-@media (min-width: 768px) {
-  .header-title {
-    font-size: 4rem;
+  .header-word {
+    display: block;
+    margin-bottom: 0.5rem;
   }
 }
 
 @media (min-width: 1024px) {
   .header-title {
-    font-size: 6rem;
-  }
-}
-
-@supports (-webkit-background-clip: text) {
-  .header-word {
-    -webkit-text-fill-color: transparent;
+    font-size: 3rem;
   }
 }

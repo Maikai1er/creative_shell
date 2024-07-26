@@ -14,7 +14,7 @@
   color: white;
 }
 
-button.MenuButton {
+.MenuButton {
   background-color: #007bff;
   color: white;
   border: none;
@@ -25,14 +25,19 @@ button.MenuButton {
   top: 20px;
   right: 20px;
   border-radius: 50%;
-  height: 100px;
-  width: 100px;
-  z-index: 1;
-  transition: right 0.3s ease;
+  height: 60px;
+  width: 60px;
+  z-index: 3;
+  transition: right 0.3s ease, opacity 0.3s ease;
 }
 
-button.MenuButton:hover {
+.MenuButton:hover {
   background-color: #0056b3;
+}
+
+.MenuButton.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .Menu {
@@ -42,9 +47,10 @@ button.MenuButton:hover {
   width: 250px;
   height: 100%;
   background-color: #f8f9fa;
-  border: 0;
+  border-left: 1px solid #dee2e6;
   transition: right 0.3s ease;
   z-index: 2;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .Menu.active {
@@ -54,6 +60,7 @@ button.MenuButton:hover {
 .Menu ul {
   list-style: none;
   padding: 0;
+  margin-top: 60px;
 }
 
 .Menu ul li {
@@ -64,4 +71,15 @@ button.MenuButton:hover {
 .Menu ul li:hover {
   background-color: #e9ecef;
   cursor: pointer;
+}
+
+.Menu ul li a {
+  color: #333;
+  text-decoration: none;
+  display: block;
+  padding: 10px 20px;
+}
+
+.Menu ul li a:hover {
+  color: #007bff;
 }

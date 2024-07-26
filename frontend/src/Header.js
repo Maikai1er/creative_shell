@@ -9,45 +9,24 @@ function Header() {
     setIsVisible(true);
   }, []);
 
-  const variantsLeft = {
-    hidden: { opacity: 0, x: -100 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } },
-  };
-
-  const variantsRight = {
-    hidden: { opacity: 0, x: 100 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  const variants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
   };
 
   return (
     <header className="header">
       <div className="header-content">
-        <h1 className="header-title">
-          <motion.span
-            className="header-word creative"
-            initial="hidden"
-            animate={isVisible ? 'visible' : 'hidden'}
-            variants={variantsLeft}
-          >
-            Creative
-          </motion.span>
-          <motion.span
-            className="header-word shell"
-            initial="hidden"
-            animate={isVisible ? 'visible' : 'hidden'}
-            variants={variantsRight}
-          >
-            Shell
-          </motion.span>
-          <motion.span
-            className="header-word project"
-            initial="hidden"
-            animate={isVisible ? 'visible' : 'hidden'}
-            variants={variantsLeft}
-          >
-            Project
-          </motion.span>
-        </h1>
+        <motion.h1
+          className="header-title"
+          initial="hidden"
+          animate={isVisible ? 'visible' : 'hidden'}
+          variants={variants}
+        >
+          <span className="header-word">Creative</span>
+          <span className="header-word">Shell</span>
+          <span className="header-word">Project</span>
+        </motion.h1>
       </div>
     </header>
   );
