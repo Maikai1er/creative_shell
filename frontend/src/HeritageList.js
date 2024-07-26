@@ -1,5 +1,64 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import './HeritageList.css';
+
+const HeritageItem = ({ heritage, index }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, []);
+
+  const variants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { opacity: 1, x: 0 }
+  };
+
+  return (
+    <motion.li
+      ref={ref}
+      className="heritage-item"
+      initial="hidden"
+      animate={isVisible ? "visible" : "hidden"}
+      variants={variants}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+    >
+      <div className="heritage-card">
+        <div className="heritage-info">
+          <h2>{heritage.name}</h2>
+          <span className="heritage-year">{heritage.year}</span>
+          <p><strong>Location:</strong> {heritage.location}</p>
+          <p><strong>Reason:</strong> {heritage.reason}</p>
+        </div>
+        {heritage.image_path && (
+          <div className="heritage-image">
+            <img src={`/static/images/${heritage.image_path}`} alt={heritage.name} />
+          </div>
+        )}
+      </div>
+    </motion.li>
+  );
+};
+
 
 function HeritageList() {
   const [heritages, setHeritages] = useState([]);
@@ -37,27 +96,13 @@ function HeritageList() {
 
   return (
     <div className="heritages">
-      <h1>Исчезнувшее культурное наследие</h1>
+      <h1>WORLD HERITAGE IN DANGER</h1>
       <ul>
         {heritages.map((heritage, index) => (
-          <li key={index} className="heritage-item">
-            <div className="heritage-card">
-              <div className="heritage-info">
-                <h2>{heritage.name}</h2>
-                <span className="heritage-year">{heritage.year}</span>
-                <p><strong>Местоположение:</strong> {heritage.location}</p>
-                <p><strong>Причина:</strong> {heritage.reason}</p>
-              </div>
-              {heritage.image_path && (
-                <div className="heritage-image">
-                  <img src={`/static/images/${heritage.image_path}`} alt={heritage.name} />
-                </div>
-              )}
-            </div>
-          </li>
+          <HeritageItem key={index} heritage={heritage} index={index} />
         ))}
       </ul>
-      {isLoading && <p className="loading-message">Загрузка дополнительных объектов...</p>}
+      {isLoading && <p className="loading-message">Loading additional content...</p>}
     </div>
   );
 };

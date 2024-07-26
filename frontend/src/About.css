@@ -1,18 +1,65 @@
-div.about {
-    background-color: #f86434;
-    font-size: 1.2em;
-    width: 100%;
-    color: white;
+.about-container {
+  background: linear-gradient(to right, #f86434, #ff7f50);
+  color: white;
+  padding: 2rem;
 }
 
-.left {
-    padding-top: 30px;
-    max-width: 40%;
-    margin-left: 15%;
+.about-content {
+  max-width: 960px;
+  margin: 0 auto;
 }
 
-.right {
-    padding-bottom: 30px;
-    max-width: 40%;
-    margin-left: 35%;
+.about-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.about-subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.about-description p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.about-list {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.about-list li {
+  margin-bottom: 0.75rem;
+}
+
+.about-slogan {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin: 1.5rem 0;
+}
+
+.about-details p {
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .about-container {
+    padding: 1.5rem;
+  }
+
+  .about-title {
+    font-size: 2rem;
+  }
+
+  .about-subtitle {
+    font-size: 1.25rem;
+  }
+
+  .about-slogan {
+    font-size: 1.5rem;
+  }
 }

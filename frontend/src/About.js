@@ -1,55 +1,69 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
+import './About.css';
 
-function About() {
-  const [isVisible, setIsVisible] = useState(false);
+const About = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2
+      }
+    }
+  };
 
-  useEffect(() => {
-    setIsVisible(true)
-  }, []);
-
-  const animateAbout = {
-    hidden: { opacity: 0, y: 300},
-    visible: { opacity: 2, y: 0, transition: { delay: 0.3, duration: 0.7 } },
-  }
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1
+    }
+  };
 
   return (
-    <div className="bg-orange-custom text-white text-lg md:text-xl lg:text-2xl p-6">
-      <motion.div
-          className="p-6"
-          initial="hidden"
-          animate={isVisible ? 'visible' : 'hidden'}
-          variants={animateAbout}
-      >
-        <h2 className="font-bold mb-4">ABOUT US</h2>
-        <p className="mb-4">
-          CREATIVE SHELL: An international donation standard for preservation of cultural heritage.
-        </p>
-        <p className="mb-4">
-          Creative Shell is creating a mobile app that allows people to donate to cultural heritage sites on the go, simply and transparently.
-        </p>
-        <ul className="list-disc ml-6 mb-4">
+    <motion.div
+      className="about-container"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
+      <div className="about-content">
+        <motion.h2 className="about-title" variants={itemVariants}>
+          ABOUT US
+        </motion.h2>
+
+        <motion.div className="about-description" variants={itemVariants}>
+          <p className="about-subtitle">
+            CREATIVE SHELL: An international donation standard for preservation of cultural heritage.
+          </p>
+          <p>
+            Creative Shell is creating a mobile app that allows people to donate to cultural heritage sites on the go, simply and transparently.
+          </p>
+        </motion.div>
+
+        <motion.ul className="about-list" variants={itemVariants}>
           <li>Users collect digital cultural artefacts, discover novel travel destinations, or explore the wonders of the world in a metaverse in exchange for their donation.</li>
           <li>Cultural institutions get much-needed financial support for the heritage they manage and protect, while reducing their carbon footprint or dependency on government support.</li>
           <li>Industry professionals have a structured digital library for research and education.</li>
-        </ul>
-        <p className="mb-4">Preserve history with a tap!</p>
-      </motion.div>
-      <motion.div
-          className="p-6"
-          initial="hidden"
-          animate={isVisible ? 'visible' : 'hidden'}
-          variants={animateAbout}
-      >
-        <p className="mb-4">
-          Creative Shell is an international team with an extraordinary set of skills and expertise, built over two decades, spanning across culture, education, venture, technology, and urban development. We have been a pioneer in multimedia and digital twins in culture tech since 2004.
-        </p>
-        <p className="mt-4">
-          We tap into a network of professionals in 20+ industries around the world, be that 500 Fortune execs or CERN researchers, internationally acclaimed auction houses, museums and Biennales, World Bank or UNESCO professionals, fintech, blockchain, robotics or metaverse innovators, educational policy-makers and more.
-        </p>
-      </motion.div>
-    </div>
+        </motion.ul>
+
+        <motion.p className="about-slogan" variants={itemVariants}>
+          Preserve history with a tap!
+        </motion.p>
+
+        <motion.div className="about-details" variants={itemVariants}>
+          <p>
+            Creative Shell is an international team with an extraordinary set of skills and expertise, built over two decades, spanning across culture, education, venture, technology, and urban development. We have been a pioneer in multimedia and digital twins in culture tech since 2004.
+          </p>
+          <p>
+            We tap into a network of professionals in 20+ industries around the world, be that 500 Fortune execs or CERN researchers, internationally acclaimed auction houses, museums and Biennales, World Bank or UNESCO professionals, fintech, blockchain, robotics or metaverse innovators, educational policy-makers and more.
+          </p>
+        </motion.div>
+      </div>
+    </motion.div>
   );
-}
+};
 
 export default About;
