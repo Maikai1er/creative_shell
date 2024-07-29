@@ -30,40 +30,54 @@ def parse_wiki(url) -> list:
     rows = table.find_all('tr')
 
     heritages = []
-    for row in rows[1:]:
-        cells = row.find_all(['th', 'td'])
+    for row in rows:
+        heritage = {}
+        cells = row.find_all('td')
         if len(cells) < 8:
             continue
 
-        heritage = {}
-        heritage['name'] = cells[0].get_text(strip=True)
+        name_cell = row.find('th')
+        if name_cell:
+            heritage['name'] = name_cell.get_text(strip=True)
 
         location_cell = cells[1]
         for elem in location_cell.select('.geo-inline, .geo, [style*="display: none"]'):
             elem.decompose()
 
-        location_text = location_cell.get_text(separator=' ', strip=True)
+        cell_text = location_cell.get_text(separator=' ', strip=True)
 
-        country_match = re.search(r'\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\b', location_text)
+        country_match = re.search(r'\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\b', cell_text)
         country = country_match.group(1) if country_match else None
+
+        region_matches = re.findall(r'\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*(?:\s+[A-Z][a-z]+)*)\b', cell_text)
+        regions = [match for match in region_matches if match != country]
+
+        place_links = location_cell.find_all('a')
+        place_names = [link.get_text() for link in place_links if link.get_text() not in (country, *regions)]
 
         if not country:
             flag_span = location_cell.find('span', class_='flagicon')
             if flag_span and flag_span.find_next_sibling(text=True):
                 country = flag_span.find_next_sibling(text=True).strip()
 
-        region_matches = re.findall(r'\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*(?:\s+[A-Z][a-z]+)*)\b', location_text)
-        regions = [match for match in region_matches if match != country]
+        regions = list(dict.fromkeys(filter(None, regions)))
+        place_names = list(dict.fromkeys(filter(None, place_names)))
 
-        place_links = location_cell.find_all('a')
-        place_names = [link.get_text() for link in place_links if link.get_text() not in (country, *regions)]
+        location_parts = []
+        if country:
+            location_parts.append(country)
+        if regions:
+            location_parts.append(', '.join(regions))
+        if place_names:
+            location_parts.append(', '.join(place_names))
 
-        location_parts = [part for part in [country, ', '.join(regions), ', '.join(place_names)] if part]
         heritage['location'] = ' - '.join(location_parts)
 
         img_tag = cells[0].find('img')
         if img_tag and 'src' in img_tag.attrs:
-            img_url = requests.compat.urljoin('https://upload.wikimedia.org', img_tag['src'])
+            img_url = img_tag['src']
+            img_url = requests.compat.urljoin('https://upload.wikimedia.org', img_url)
+
             img_filename = f"{heritage['name'].replace('/', '_').replace(':', '_')}.jpg"
             img_path = os.path.join('/app/shared/images/', img_filename)
             download_image(img_url, img_path)
