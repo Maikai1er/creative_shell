@@ -63,11 +63,33 @@ const HeritageItem = ({ heritage, index }) => {
 function HeritageList() {
   const [heritages, setHeritages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [titleVisible, setTitleVisible] = useState(false);
+  const titleRef = useRef(null);
 
   useEffect(() => {
     loadMoreItems();
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    const titleObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTitleVisible(true);
+          titleObserver.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (titleRef.current) {
+      titleObserver.observe(titleRef.current);
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (titleRef.current) {
+        titleObserver.unobserve(titleRef.current);
+      }
+    };
   }, []);
 
   const loadMoreItems = () => {
@@ -94,9 +116,22 @@ function HeritageList() {
     }
   };
 
+  const titleVariants = {
+    hidden: { opacity: 0, y: -50 },
+    visible: { opacity: 1, y: 0 }
+  };
+
   return (
     <div className="heritages">
-      <h1>WORLD HERITAGE IN DANGER</h1>
+      <motion.h1
+        ref={titleRef}
+        initial="hidden"
+        animate={titleVisible ? "visible" : "hidden"}
+        variants={titleVariants}
+        transition={{ duration: 0.5 }}
+      >
+        WORLD HERITAGE IN DANGER
+      </motion.h1>
       <ul>
         {heritages.map((heritage, index) => (
           <HeritageItem key={index} heritage={heritage} index={index} />

@@ -9,6 +9,12 @@
 .heritages h1 {
   font-size: 2.5em;
   margin-bottom: 20px;
+  will-change: opacity, transform;
+}
+
+.heritages h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
 }
 
 .heritages ul {
