@@ -47,7 +47,7 @@ def send_next_heritage() -> None:
         else:
             bot.send_message(chat_id='5787733609', text='Image not found!')
         bot.send_message(chat_id='5787733609', text='Choose an action:', reply_markup=create_keyboard(['approve', 'reject']))
-    except Exception as e:
+    except Exception:
         bot.send_message(chat_id='5787733609', text='Error sending next heritage!')
 
 

@@ -13,8 +13,8 @@ function App() {
             <MenuButton />
             <main>
                 <Routes>
-                    <Route path="/" element={<><About /><HeritageList /></>} />
-                    <Route path="/contacts" element={<div>Contacts Page</div>} />
+                    <Route path='/' element={<><About /><HeritageList /></>} />
+                    <Route path='/contacts' element={<div>Contacts Page</div>} />
                 </Routes>
             </main>
         </div>

@@ -22,7 +22,7 @@ def save_to_heritage_table(heritage_to_save: dict) -> None:
         cultural_heritage.full_clean()
         cultural_heritage.save()
     except ValidationError as e:
-        raise ValidationError(e)
+        raise e
 
 
 def save_to_parsed_table(heritage_to_save: dict) -> None:
@@ -64,4 +64,3 @@ def save_to_contact_data_table(contact_to_save: dict) -> None:
         contact_data.save()
     except ValidationError as e:
         raise e
-

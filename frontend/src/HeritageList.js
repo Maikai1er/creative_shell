@@ -36,21 +36,21 @@ const HeritageItem = ({ heritage, index }) => {
   return (
     <motion.li
       ref={ref}
-      className="heritage-item"
-      initial="hidden"
-      animate={isVisible ? "visible" : "hidden"}
+      className='heritage-item'
+      initial='hidden'
+      animate={isVisible ? 'visible' : 'hidden'}
       variants={variants}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      <div className="heritage-card">
-        <div className="heritage-info">
+      <div className='heritage-card'>
+        <div className='heritage-info'>
           <h2>{heritage.name}</h2>
-          <span className="heritage-year">{heritage.year}</span>
+          <span className='heritage-year'>{heritage.year}</span>
           <p><strong>Location:</strong> {heritage.location}</p>
           <p><strong>Reason:</strong> {heritage.reason}</p>
         </div>
         {heritage.image_path && (
-          <div className="heritage-image">
+          <div className='heritage-image'>
             <img src={`/static/images/${heritage.image_path}`} alt={heritage.name} />
           </div>
         )}
