@@ -67,7 +67,7 @@ function PartnershipForm({ isOpen, onClose }) {
               value={formData.name}
               onChange={handleChange}
               required
-              placeholder='Введите ваше имя'
+              placeholder='Enter your name'
             />
           </div>
           <div className='form-group'>
@@ -79,7 +79,7 @@ function PartnershipForm({ isOpen, onClose }) {
               value={formData.contact}
               onChange={handleChange}
               required
-              placeholder='Email или телефон'
+              placeholder='Email or phone'
             />
           </div>
           <div className='form-group'>
@@ -91,7 +91,7 @@ function PartnershipForm({ isOpen, onClose }) {
               onChange={handleChange}
               required
               rows='4'
-              placeholder='Расскажите немного о себе и цели обращения'
+              placeholder='Tell about yourself and the appeal reson'
             />
           </div>
           <button type='submit' className='submit-button'>
