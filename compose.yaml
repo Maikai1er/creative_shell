@@ -4,11 +4,13 @@ services:
     restart: always
     command: postgres -c 'max_connections=200'
     environment:
-      POSTGRES_DB: sandBox
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: TestPassV3TTR
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - 5432:5432
+    env_file:
+      - .env
 
   redis:
     image: 'bitnami/redis:latest'
@@ -16,7 +18,9 @@ services:
     ports:
       - 6379:6379
     environment:
-      - REDIS_PASSWORD=r3NVuM4N
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    env_file:
+      - .env
 
   django:
     build:
@@ -30,6 +34,8 @@ services:
     volumes:
       - ./shared/images:/app/shared/images
       - ./shared/admin:/usr/share/nginx/html/static/admin
+    env_file:
+      - .env
 
   telegram-bot:
     build:
@@ -37,6 +43,9 @@ services:
       dockerfile: telegram_bot/Dockerfile_telegram_bot
     volumes:
       - ./shared/images:/app/shared/images
+    restart: always
+    env_file:
+      - .env
 
   frontend:
     build:
@@ -49,6 +58,8 @@ services:
     volumes:
       - ./shared/images:/usr/share/nginx/html/static/images
       - ./shared/admin:/usr/share/nginx/html/static/admin
+    env_file:
+      - .env
 
 volumes:
   shared:
