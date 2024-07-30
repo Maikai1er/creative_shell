@@ -4,7 +4,7 @@ import requests
 from telebot import TeleBot
 from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 
-TOKEN = '6962411316:AAHb_QYx3XU-JNib6gkhDhOXKEBiW_k6s74'
+TOKEN = os.getenv('TOKEN')
 bot = TeleBot(TOKEN)
 
 

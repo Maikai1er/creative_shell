@@ -1,8 +1,9 @@
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-5#in8c$g*fv=vxzwa$inyadl3&x6ew!tigw#&4l1v)%e^a+e7m'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = True
 
@@ -36,9 +37,6 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'creative_shell.urls'
 
-CELERY_BROKER_URL = 'redis://:r3NVuM4N@127.0.0.1:6379/0'
-CELERY_RESULT_BACKEND = 'redis://:r3NVuM4N@127.0.0.1:6379/0'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -60,11 +58,11 @@ WSGI_APPLICATION = 'creative_shell.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'sandBox',
-        'USER': 'postgres',
-        'PASSWORD': 'TestPassV3TTR',
-        'HOST': 'postgres',
-        'PORT': '5432',
+        'NAME': os.getenv('POSTGRES_DB', 'default_db_name'),
+        'USER': os.getenv('POSTGRES_USER', 'default_user'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'default_password'),
+        'HOST': os.getenv('POSTGRES_HOST', 'postgres'),
+        'PORT': os.getenv('POSTGRES_PORT', '5432'),
     }
 }
 

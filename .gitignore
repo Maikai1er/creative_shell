@@ -8,3 +8,4 @@ __pycache__/
 **/Dockerfile_telegram_bot
 **/compose.yaml
 .pytest_cache/
+.env
