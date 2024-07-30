@@ -122,11 +122,11 @@ function HeritageList() {
   };
 
   return (
-    <div className="heritages">
+    <div className='heritages'>
       <motion.h1
         ref={titleRef}
-        initial="hidden"
-        animate={titleVisible ? "visible" : "hidden"}
+        initial='hidden'
+        animate={titleVisible ? 'visible' : 'hidden'}
         variants={titleVariants}
         transition={{ duration: 0.5 }}
       >
@@ -137,7 +137,7 @@ function HeritageList() {
           <HeritageItem key={index} heritage={heritage} index={index} />
         ))}
       </ul>
-      {isLoading && <p className="loading-message">Loading additional content...</p>}
+      {isLoading && <p className='loading-message'>Loading additional content...</p>}
     </div>
   );
 }

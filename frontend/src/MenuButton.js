@@ -39,7 +39,7 @@ function MenuButton() {
             <div className={`Menu ${isMenuVisible ? 'active' : ''}`}>
                 <ul>
                     <li><Link to='/' onClick={() => setIsMenuVisible(false)}>Home</Link></li>
-                    <li><button onClick={() => { setIsModalOpen(true); setIsMenuVisible(false); }}>Partnership</button></li>
+                    <li><Link as='button' to='#' className='PartnershipButton' onClick={() => { setIsModalOpen(true); setIsMenuVisible(false); }}>Partnership</Link></li>
                     <li><Link to='/contacts' onClick={() => setIsMenuVisible(false)}>Contact</Link></li>
                 </ul>
             </div>

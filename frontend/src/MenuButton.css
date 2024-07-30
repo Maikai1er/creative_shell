@@ -62,18 +62,16 @@
 
 .Menu ul {
   list-style: none;
-  padding: 0;
+  padding: 20px 0;
   margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100%;
 }
 
 .Menu ul li {
   font-size: calc(10px + 2vmin);
-  padding: 20px 0;
+  padding: 0;
   width: 100%;
   text-align: center;
 }
@@ -83,13 +81,22 @@
   cursor: pointer;
 }
 
-.Menu ul li a {
+.Menu ul li a,
+.Menu ul li .PartnershipButton {
   color: #333;
   text-decoration: none;
   display: block;
   padding: 10px 20px;
+  width: 100%;
+  text-align: center;
+  background: none;
+  border: none;
+  font-size: inherit;
+  cursor: pointer;
 }
 
-.Menu ul li a:hover {
+.Menu ul li a:hover,
+.Menu ul li .PartnershipButton:hover {
   color: #007bff;
+  background-color: #e9ecef;
 }
