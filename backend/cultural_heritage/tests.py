@@ -54,9 +54,9 @@ class CulturalHeritageModelTest(TestCase):
     def test_year_max_length(self):
         data = self.valid_data.copy()
         data['year'] = 'A' * 256
-        parsed_data = CulturalHeritage(**data)
+        heritage = CulturalHeritage(**data)
         with self.assertRaises(ValidationError):
-            parsed_data.full_clean()
+            heritage.full_clean()
 
     def test_invalid_year_type(self):
         data = self.valid_data.copy()
