@@ -27,15 +27,15 @@ class ParsedDataModelTest(TestCase):
         data = self.valid_data.copy()
         data.pop('name')
         with self.assertRaises(ValidationError):
-            heritage = ParsedData(**data)
-            heritage.full_clean()
+            parsed_data = ParsedData(**data)
+            parsed_data.full_clean()
 
     def test_missing_location(self):
         data = self.valid_data.copy()
         data.pop('location')
         with self.assertRaises(ValidationError):
-            heritage = ParsedData(**data)
-            heritage.full_clean()
+            parsed_data = ParsedData(**data)
+            parsed_data.full_clean()
 
     def test_name_max_length(self):
         data = self.valid_data.copy()

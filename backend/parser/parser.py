@@ -78,7 +78,7 @@ def parse_wiki(url) -> list:
             img_url = img_tag['src']
             img_url = requests.compat.urljoin('https://upload.wikimedia.org', img_url)
 
-            img_filename = f"{heritage['name'].replace('/', '_').replace(':', '_')}.jpg"
+            img_filename = f'{heritage['name'].replace('/', '_').replace(':', '_')}.jpg'
             img_path = os.path.join('/app/shared/images/', img_filename)
             download_image(img_url, img_path)
             heritage['image_path'] = img_filename
