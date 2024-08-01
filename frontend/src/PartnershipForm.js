@@ -20,7 +20,7 @@ function PartnershipForm({ isOpen, onClose }) {
     e.preventDefault();
     try {
       console.log('Отправка данных:', formData);
-      const response = await fetch(`${process.env.REACT_APP_API_HOST}/receive_contact_data/`, {
+      const response = await fetch(`http://{process.env.REACT_APP_API_HOST}/api/receive_contact_data/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

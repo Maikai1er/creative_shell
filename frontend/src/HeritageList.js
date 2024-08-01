@@ -96,7 +96,7 @@ function HeritageList() {
     if (isLoading) return;
     setIsLoading(true);
 
-    fetch(`${process.env.REACT_APP_API_HOST}/load-more-heritages/`)
+    fetch(`http://${process.env.REACT_APP_API_HOST}/api/load-more-heritages/`)
       .then(response => response.json())
       .then(data => {
         setHeritages(prevHeritages => [...prevHeritages, ...data]);
