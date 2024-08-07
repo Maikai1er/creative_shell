@@ -1,5 +1,5 @@
-ARG PYTHON_VERSION=3.12.2
-FROM python:${PYTHON_VERSION}-slim as base
+ARG PYTHON_VERSION
+FROM python:${PYTHON_VERSION}-alpine as base
 
 ENV PYTHONDONTWRITEBYTECODE=1
 
@@ -9,11 +9,10 @@ WORKDIR /app
 
 ENV PYTHONPATH /app
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
+RUN apk update && apk add --no-cache \
+    build-base \
     nginx \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
+    postgresql-dev
 
 ARG UID=10001
 RUN adduser \
