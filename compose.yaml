@@ -20,7 +20,7 @@ services:
   django:
     build:
       context: ./backend
-      dockerfile: backend/Dockerfile_backend
+      dockerfile: Dockerfile_backend
       args:
         PYTHON_VERSION: ${PYTHON_VERSION}
     restart: unless-stopped
