@@ -3,7 +3,7 @@ node_modules/
 .idea/
 venv/
 __pycache__/
-**/Dockerfile
+backend/Dockerfile_backend
 **/Dockerfile_web
 **/Dockerfile_telegram_bot
 **/compose.yaml
